@@ -8,10 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
@@ -38,7 +35,7 @@ class DriverAPITest {
     @Test
     void shouldReturnListWithRegisteredDrivers() {
         List<Driver> expectedDriversList = new ArrayList<>();
-        expectedDriversList.add(createDriver());
+        expectedDriversList.add(createDriver(623866385000L, 1L,"João Costa" ));
         when(driverRepository.findAll()).thenReturn(expectedDriversList);
 
         List<Driver> actualDriversList = driverAPI.listDrivers();
@@ -47,12 +44,35 @@ class DriverAPITest {
         verify(driverRepository).findAll();
     }
 
-    private Driver createDriver() {
-        long timestamp = 623866385000L;
+    @Test
+    void shouldFindDriverById() {
+        Driver expectedDriver = createDriver(257014172000L, 2L,"Maria Almeida" );
+
+        Long driverIdToSearch = expectedDriver.getId();
+        when(driverRepository.findById(driverIdToSearch)).thenReturn(java.util.Optional.of(expectedDriver));
+
+        Optional<Driver> actualDriver = driverAPI.findDriver(driverIdToSearch);
+
+        assertThat(actualDriver.orElse(null)).isEqualTo(expectedDriver);
+        verify(driverRepository).findById(driverIdToSearch);
+    }
+
+    @Test
+    void shouldReturnIdIfSearchedDriverDoesNotExist() {
+        long driverIdToSearch = 3L;
+        when(driverRepository.findById(driverIdToSearch)).thenReturn(null);
+
+        Optional<Driver> actualDriver = driverAPI.findDriver(driverIdToSearch);
+
+        assertThat(actualDriver).isNull();
+        verify(driverRepository).findById(driverIdToSearch);
+    }
+
+    private Driver createDriver(long timestamp, long id, String name) {
         Driver driver = new Driver();
 
-        driver.setId(1L);
-        driver.setName("João Costa");
+        driver.setId(id);
+        driver.setName(name);
         driver.setDateOfBirth(new Date(timestamp));
 
         return driver;

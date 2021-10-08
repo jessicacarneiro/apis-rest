@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RestController
@@ -22,5 +24,10 @@ public class DriverAPI {
     @GetMapping("/drivers")
     public List<Driver> listDrivers() {
         return repository.findAll();
+    }
+
+    @GetMapping("/drivers/{id}")
+    public Optional<Driver> findDriver(@PathVariable("id") Long id) {
+        return repository.findById(id);
     }
 }
