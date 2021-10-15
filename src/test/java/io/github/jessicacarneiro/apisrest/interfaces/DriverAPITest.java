@@ -7,9 +7,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -51,9 +53,9 @@ class DriverAPITest {
         Long driverIdToSearch = expectedDriver.getId();
         when(driverRepository.findById(driverIdToSearch)).thenReturn(java.util.Optional.of(expectedDriver));
 
-        Optional<Driver> actualDriver = driverAPI.findDriver(driverIdToSearch);
+        Driver actualDriver = driverAPI.findDriver(driverIdToSearch);
 
-        assertThat(actualDriver.orElse(null)).isEqualTo(expectedDriver);
+        assertThat(actualDriver).isEqualTo(expectedDriver);
         verify(driverRepository).findById(driverIdToSearch);
     }
 
@@ -62,9 +64,8 @@ class DriverAPITest {
         long driverIdToSearch = 3L;
         when(driverRepository.findById(driverIdToSearch)).thenReturn(null);
 
-        Optional<Driver> actualDriver = driverAPI.findDriver(driverIdToSearch);
+        assertThatThrownBy(() -> driverAPI.findDriver(driverIdToSearch)).isInstanceOf(NullPointerException.class);
 
-        assertThat(actualDriver).isNull();
         verify(driverRepository).findById(driverIdToSearch);
     }
 

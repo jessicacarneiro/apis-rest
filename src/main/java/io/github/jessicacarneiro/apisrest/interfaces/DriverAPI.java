@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RestController
@@ -27,7 +26,7 @@ public class DriverAPI {
     }
 
     @GetMapping("/drivers/{id}")
-    public Optional<Driver> findDriver(@PathVariable("id") Long id) {
-        return repository.findById(id);
+    public Driver findDriver(@PathVariable("id") Long id) {
+        return repository.findById(id).get();
     }
 }
