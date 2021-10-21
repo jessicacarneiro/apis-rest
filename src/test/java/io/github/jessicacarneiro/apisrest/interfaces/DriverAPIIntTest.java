@@ -76,6 +76,14 @@ public class DriverAPIIntTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(driver.getName()));
     }
 
+    @Test
+    public void getNotFoundWhenTryingToGetDriverThatDoesNotExist() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/drivers/5")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
     private Driver createDriver(String date, long id, String name) throws ParseException {
         Driver driver = new Driver();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");

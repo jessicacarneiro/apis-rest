@@ -3,12 +3,14 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.infrastructure.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class DriverAPI {
 
     @GetMapping("/drivers/{id}")
     public Driver findDriver(@PathVariable("id") Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }
