@@ -7,9 +7,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -37,7 +39,7 @@ class DriverAPITest {
     @Test
     void shouldReturnListWithRegisteredDrivers() {
         List<Driver> expectedDriversList = new ArrayList<>();
-        expectedDriversList.add(createDriver(623866385000L, 1L,"João Costa" ));
+        expectedDriversList.add(generateDriver(623866385000L, 1L,"João Costa" ));
         when(driverRepository.findAll()).thenReturn(expectedDriversList);
 
         List<Driver> actualDriversList = driverAPI.listDrivers();
@@ -48,8 +50,7 @@ class DriverAPITest {
 
     @Test
     void shouldFindDriverById() {
-        Driver expectedDriver = createDriver(257014172000L, 2L,"Maria Almeida" );
-
+        Driver expectedDriver = generateDriver(257014172000L, 2L,"Maria Almeida" );
         Long driverIdToSearch = expectedDriver.getId();
         when(driverRepository.findById(driverIdToSearch)).thenReturn(java.util.Optional.of(expectedDriver));
 
@@ -65,11 +66,21 @@ class DriverAPITest {
         when(driverRepository.findById(driverIdToSearch)).thenReturn(null);
 
         assertThatThrownBy(() -> driverAPI.findDriver(driverIdToSearch)).isInstanceOf(NullPointerException.class);
-
         verify(driverRepository).findById(driverIdToSearch);
     }
 
-    private Driver createDriver(long timestamp, long id, String name) {
+    @Test
+    void shouldCreateANewDriver() {
+        Driver expectedDriver = generateDriver(257014172000L, 3L,"Marcos Rocha" );
+        when(driverRepository.save(expectedDriver)).thenReturn(expectedDriver);
+
+        Driver createdDriver = driverAPI.createDriver(expectedDriver);
+
+        assertThat(createdDriver).isEqualTo(expectedDriver);
+        verify(driverRepository).save(expectedDriver);
+    }
+
+    private Driver generateDriver(long timestamp, long id, String name) {
         Driver driver = new Driver();
 
         driver.setId(id);

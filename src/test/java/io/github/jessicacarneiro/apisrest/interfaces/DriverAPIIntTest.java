@@ -48,7 +48,7 @@ public class DriverAPIIntTest {
     @Test
     public void getListWithAllDrivers() throws Exception {
         String dateOfBirth = "2000-05-23T09:01:02.000+00:00";
-        Driver driver = createDriver(dateOfBirth, 2L, "Maria Almeida");
+        Driver driver = generateDriver(dateOfBirth, 2L, "Maria Almeida");
         repository.save(driver);
 
         mvc.perform(MockMvcRequestBuilders
@@ -64,7 +64,7 @@ public class DriverAPIIntTest {
     @Test
     public void getDriverWhenSearchingDriverById() throws Exception {
         String dateOfBirth = "1978-12-05T19:23:56.000+00:00";
-        Driver driver = createDriver(dateOfBirth, 1L, "João Costa");
+        Driver driver = generateDriver(dateOfBirth, 1L, "João Costa");
         repository.save(driver);
 
         mvc.perform(MockMvcRequestBuilders
@@ -77,6 +77,14 @@ public class DriverAPIIntTest {
     }
 
     @Test
+    public void shouldReturnBadRequestIfNoBodySentToCreateDriver() throws Exception {
+           mvc.perform(MockMvcRequestBuilders
+                        .post("/drivers")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void getNotFoundWhenTryingToGetDriverThatDoesNotExist() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .get("/drivers/5")
@@ -84,7 +92,7 @@ public class DriverAPIIntTest {
                 .andExpect(status().isNotFound());
     }
 
-    private Driver createDriver(String date, long id, String name) throws ParseException {
+    private Driver generateDriver(String date, long id, String name) throws ParseException {
         Driver driver = new Driver();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
