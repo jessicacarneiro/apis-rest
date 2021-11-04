@@ -65,6 +65,33 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Fully update driver",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Matheus Leme\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/drivers/1",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"drivers",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [

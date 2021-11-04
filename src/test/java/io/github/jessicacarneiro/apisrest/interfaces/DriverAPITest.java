@@ -83,6 +83,20 @@ class DriverAPITest {
         verify(driverRepository).save(expectedDriver);
     }
 
+    @Test
+    void shouldFullyUpdateADriver() {
+        LocalDate dateOfBirth = LocalDate.of(1969, 5, 10);
+        Driver driverToSave = generateDriver(3L,"Marcos Rocha", dateOfBirth);
+        when(driverRepository.findById(driverToSave.getId())).thenReturn(java.util.Optional.of(driverToSave));
+        when(driverRepository.save(driverToSave)).thenReturn(driverToSave);
+
+        Driver fullyUpdateDriver = driverAPI.fullyUpdateDriver(3L, driverToSave);
+
+        assertThat(fullyUpdateDriver).isEqualTo(driverToSave);
+        verify(driverRepository).findById(driverToSave.getId());
+        verify(driverRepository).save(driverToSave);
+    }
+
     private Driver generateDriver(long id, String name, LocalDate dateOfBirth) {
         Driver driver = new Driver();
 

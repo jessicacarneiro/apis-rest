@@ -92,7 +92,9 @@ public class DriverAPIIntTest {
                         .post("/drivers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateOfBirth").value(driver.getDateOfBirth().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(driver.getName()));
     }
 
     @Test
@@ -100,6 +102,50 @@ public class DriverAPIIntTest {
         mvc.perform(MockMvcRequestBuilders
                         .post("/drivers")
                         .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldFullyUpdateADriverWithSuccess() throws Exception {
+        Driver driver = generateDriver("João Costa", LocalDate.of(1975, 12, 21));
+        Driver driverSaved = repository.save(driver);
+
+        driver.setName("Marcelo Lima");
+        String requestBody = generatePostBodyWithoutDateOfBirth(driver);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/drivers/" + driverSaved.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(driverSaved.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(driver.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateOfBirth").doesNotExist());
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenTryingToFullyUpdateNonExistentDriver() throws Exception {
+        Driver driver = generateDriver("Heloisa Menezes", LocalDate.of(1953, 2, 12));
+        String requestBody = generatePostBody(driver);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/drivers/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldReturnBadRequestIfNoBodySentToFullyUpdateDriver() throws Exception {
+        Driver driver = generateDriver("João Costa", LocalDate.of(1975, 12, 21));
+        Driver driverSaved = repository.save(driver);
+
+        driver.setName("Marcelo Lima");
+        driver.setDateOfBirth(LocalDate.of(1995, 7, 30));
+
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/drivers/" + driverSaved.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -113,8 +159,11 @@ public class DriverAPIIntTest {
     }
 
     private String generatePostBody(Driver driver) {
-        return "{\"id\":" + driver.getId() + "," +
-                "\"name\":" + "\"" + driver.getName() + "\"" + "," +
+        return "{\"name\":" + "\"" + driver.getName() + "\"" + "," +
                 "\"dateOfBirth\":" + "\"" + driver.getDateOfBirth().toString() + "\"" + "}";
+    }
+
+    private String generatePostBodyWithoutDateOfBirth(Driver driver) {
+        return "{\"name\":" + "\"" + driver.getName() + "\"" + "}";
     }
 }
