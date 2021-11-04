@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "d0aaedfc-ac12-4bd7-826b-b66d228daebe",
+		"name": "apis-rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all drivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/drivers",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get driver by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/drivers/2",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"drivers",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create driver",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Cora Randall\",\n    \"dateOfBirth\": \"1856-12-21\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/drivers",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:8080/"
+		}
+	]
+}
