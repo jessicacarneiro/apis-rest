@@ -41,6 +41,24 @@
 			"response": []
 		},
 		{
+			"name": "Delete driver",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/drivers/1",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"drivers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create driver",
 			"request": {
 				"method": "POST",

@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -191,6 +193,27 @@ public class DriverAPIIntTest {
                         .patch("/drivers/" + driverSaved.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldDeleteDriverWithSuccess() throws Exception {
+        Driver driver = generateDriver("Alessandra Dias", LocalDate.of(1979, 9, 3));
+        Driver driverSaved = repository.save(driver);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/drivers/" + driverSaved.getId()))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist());
+
+        assertThat(repository.findById(driverSaved.getId())).isEmpty();
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenTryingToDeleteNonExistentDriver() throws Exception {
+         mvc.perform(MockMvcRequestBuilders
+                        .delete("/drivers/5"))
+                .andExpect(status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist());
     }
 
     private Driver generateDriver(String name, LocalDate dateOfBirth) {
