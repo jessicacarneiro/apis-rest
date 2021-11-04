@@ -149,6 +149,50 @@ public class DriverAPIIntTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void shouldPartiallyUpdateADriverWithSuccess() throws Exception {
+        Driver driver = generateDriver("José Carneiro", LocalDate.of(1945, 1, 31));
+        Driver driverSaved = repository.save(driver);
+
+        driver.setName("Vitor Ribeiro");
+        String requestBody = generatePostBodyWithoutDateOfBirth(driver);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .patch("/drivers/" + driverSaved.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(driverSaved.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(driver.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateOfBirth").value(driver.getDateOfBirth().toString()));
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenTryingToPartiallyUpdateNonExistentDriver() throws Exception {
+        Driver driver = generateDriver("Joana Silveira", LocalDate.of(1988, 10, 26));
+        String requestBody = generatePostBodyWithoutDateOfBirth(driver);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .patch("/drivers/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldReturnBadRequestIfNoBodySentToPartiallyUpdateDriver() throws Exception {
+        Driver driver = generateDriver("Manoel Pontes", LocalDate.of(2000, 3, 14));
+        Driver driverSaved = repository.save(driver);
+
+        driver.setName("Marcelo Lima");
+        driver.setDateOfBirth(LocalDate.of(1995, 7, 30));
+
+        mvc.perform(MockMvcRequestBuilders
+                        .patch("/drivers/" + driverSaved.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
     private Driver generateDriver(String name, LocalDate dateOfBirth) {
         Driver driver = new Driver();
 

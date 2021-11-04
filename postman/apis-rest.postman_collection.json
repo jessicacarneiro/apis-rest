@@ -92,6 +92,33 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Partially update driver",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jonas Soares\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/drivers/1",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"drivers",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [

@@ -46,4 +46,14 @@ public class DriverAPI {
 
         return repository.save(foundDriver);
     }
+
+    @PatchMapping("/drivers/{id}")
+    public Driver partiallyUpdateDriver(@PathVariable("id") long id, @RequestBody Driver driver) {
+        Driver foundDriver = findDriver(id);
+
+        foundDriver.setName(Optional.ofNullable(driver.getName()).orElse(foundDriver.getName()));
+        foundDriver.setDateOfBirth(Optional.ofNullable(driver.getDateOfBirth()).orElse(foundDriver.getDateOfBirth()));
+
+        return repository.save(foundDriver);
+    }
 }

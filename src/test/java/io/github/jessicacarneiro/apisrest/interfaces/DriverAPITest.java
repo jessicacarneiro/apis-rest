@@ -88,9 +88,26 @@ class DriverAPITest {
         LocalDate dateOfBirth = LocalDate.of(1969, 5, 10);
         Driver driverToSave = generateDriver(3L,"Marcos Rocha", dateOfBirth);
         when(driverRepository.findById(driverToSave.getId())).thenReturn(java.util.Optional.of(driverToSave));
+        driverToSave.setName("Alexandre Souza");
         when(driverRepository.save(driverToSave)).thenReturn(driverToSave);
 
         Driver fullyUpdateDriver = driverAPI.fullyUpdateDriver(3L, driverToSave);
+
+        assertThat(fullyUpdateDriver).isEqualTo(driverToSave);
+        verify(driverRepository).findById(driverToSave.getId());
+        verify(driverRepository).save(driverToSave);
+    }
+
+    @Test
+    void shouldPartiallyUpdateADriver() {
+        LocalDate dateOfBirth = LocalDate.of(1978, 11, 28);
+        Driver driverToSave = generateDriver(3L,"Helena Fonseca", dateOfBirth);
+        when(driverRepository.findById(driverToSave.getId())).thenReturn(java.util.Optional.of(driverToSave));
+
+        driverToSave.setName("Rosana Martins");
+        when(driverRepository.save(driverToSave)).thenReturn(driverToSave);
+
+        Driver fullyUpdateDriver = driverAPI.partiallyUpdateDriver(3L, driverToSave);
 
         assertThat(fullyUpdateDriver).isEqualTo(driverToSave);
         verify(driverRepository).findById(driverToSave.getId());
