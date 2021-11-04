@@ -46,32 +46,32 @@ public class DriverAPIIntTest {
     @Test
     public void getListWithAllDrivers() throws Exception {
         LocalDate dateOfBirth = LocalDate.of(1987, 3, 9);
-        Driver driver = generateDriver(2L, "Maria Almeida", dateOfBirth);
-        repository.save(driver);
+        Driver driver = generateDriver("Maria Almeida", dateOfBirth);
+        Driver driverSaved = repository.save(driver);
 
         mvc.perform(MockMvcRequestBuilders
                         .get("/drivers")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(driver.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].dateOfBirth").value(dateOfBirth.toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(driver.getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(driverSaved.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].dateOfBirth").value(driverSaved.getDateOfBirth().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(driverSaved.getName()));
     }
 
     @Test
     public void getDriverWhenSearchingDriverById() throws Exception {
         LocalDate dateOfBirth = LocalDate.of(1975, 12, 21);
-        Driver driver = generateDriver(1L, "João Costa", dateOfBirth);
-        repository.save(driver);
+        Driver driver = generateDriver("João Costa", dateOfBirth);
+        Driver driverSaved = repository.save(driver);
 
         mvc.perform(MockMvcRequestBuilders
-                        .get("/drivers/1")
+                        .get("/drivers/" + driverSaved.getId())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(driver.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.dateOfBirth").value(dateOfBirth.toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(driver.getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(driverSaved.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateOfBirth").value(driverSaved.getDateOfBirth().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(driverSaved.getName()));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class DriverAPIIntTest {
     @Test
     public void shouldCreateNewDriverWithSuccess() throws Exception {
         LocalDate dateOfBirth = LocalDate.of(1975, 12, 21);
-        Driver driver = generateDriver(1L, "João Costa", dateOfBirth);
+        Driver driver = generateDriver("João Costa", dateOfBirth);
         String requestBody = generatePostBody(driver);
 
         mvc.perform(MockMvcRequestBuilders
@@ -103,10 +103,9 @@ public class DriverAPIIntTest {
                 .andExpect(status().isBadRequest());
     }
 
-    private Driver generateDriver(long id, String name, LocalDate dateOfBirth) {
+    private Driver generateDriver(String name, LocalDate dateOfBirth) {
         Driver driver = new Driver();
 
-        driver.setId(id);
         driver.setName(name);
         driver.setDateOfBirth(dateOfBirth);
 

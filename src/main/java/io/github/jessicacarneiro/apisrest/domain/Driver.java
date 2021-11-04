@@ -3,6 +3,7 @@ package io.github.jessicacarneiro.apisrest.domain;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 public class Driver {
 
     @Id
+    @GeneratedValue
     Long id;
     String name;
     LocalDate dateOfBirth;
