@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -13,6 +13,6 @@ public class Driver {
     @Id
     Long id;
     String name;
-    Date dateOfBirth;
+    LocalDate dateOfBirth;
 
 }

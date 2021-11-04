@@ -14,9 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
+import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,8 +45,8 @@ public class DriverAPIIntTest {
 
     @Test
     public void getListWithAllDrivers() throws Exception {
-        String dateOfBirth = "2000-05-23T09:01:02.000+00:00";
-        Driver driver = generateDriver(dateOfBirth, 2L, "Maria Almeida");
+        LocalDate dateOfBirth = LocalDate.of(1987, 3, 9);
+        Driver driver = generateDriver(2L, "Maria Almeida", dateOfBirth);
         repository.save(driver);
 
         mvc.perform(MockMvcRequestBuilders
@@ -57,14 +55,14 @@ public class DriverAPIIntTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(driver.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].dateOfBirth").value(dateOfBirth))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].dateOfBirth").value(dateOfBirth.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(driver.getName()));
     }
 
     @Test
     public void getDriverWhenSearchingDriverById() throws Exception {
-        String dateOfBirth = "1978-12-05T19:23:56.000+00:00";
-        Driver driver = generateDriver(dateOfBirth, 1L, "João Costa");
+        LocalDate dateOfBirth = LocalDate.of(1975, 12, 21);
+        Driver driver = generateDriver(1L, "João Costa", dateOfBirth);
         repository.save(driver);
 
         mvc.perform(MockMvcRequestBuilders
@@ -72,16 +70,8 @@ public class DriverAPIIntTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(driver.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.dateOfBirth").value(dateOfBirth))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateOfBirth").value(dateOfBirth.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(driver.getName()));
-    }
-
-    @Test
-    public void shouldReturnBadRequestIfNoBodySentToCreateDriver() throws Exception {
-           mvc.perform(MockMvcRequestBuilders
-                        .post("/drivers")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -92,15 +82,40 @@ public class DriverAPIIntTest {
                 .andExpect(status().isNotFound());
     }
 
-    private Driver generateDriver(String date, long id, String name) throws ParseException {
+    @Test
+    public void shouldCreateNewDriverWithSuccess() throws Exception {
+        LocalDate dateOfBirth = LocalDate.of(1975, 12, 21);
+        Driver driver = generateDriver(1L, "João Costa", dateOfBirth);
+        String requestBody = generatePostBody(driver);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/drivers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldReturnBadRequestIfNoBodySentToCreateDriver() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/drivers")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    private Driver generateDriver(long id, String name, LocalDate dateOfBirth) {
         Driver driver = new Driver();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         driver.setId(id);
         driver.setName(name);
-        driver.setDateOfBirth(dateFormat.parse(date));
+        driver.setDateOfBirth(dateOfBirth);
 
         return driver;
+    }
+
+    private String generatePostBody(Driver driver) {
+        return "{\"id\":" + driver.getId() + "," +
+                "\"name\":" + "\"" + driver.getName() + "\"" + "," +
+                "\"dateOfBirth\":" + "\"" + driver.getDateOfBirth().toString() + "\"" + "}";
     }
 }

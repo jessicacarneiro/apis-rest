@@ -8,8 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,7 +39,8 @@ class DriverAPITest {
     @Test
     void shouldReturnListWithRegisteredDrivers() {
         List<Driver> expectedDriversList = new ArrayList<>();
-        expectedDriversList.add(generateDriver(623866385000L, 1L,"João Costa" ));
+        LocalDate dateOfBirth = LocalDate.of(1990, 8, 16);
+        expectedDriversList.add(generateDriver(1L,"João Costa", dateOfBirth));
         when(driverRepository.findAll()).thenReturn(expectedDriversList);
 
         List<Driver> actualDriversList = driverAPI.listDrivers();
@@ -50,7 +51,8 @@ class DriverAPITest {
 
     @Test
     void shouldFindDriverById() {
-        Driver expectedDriver = generateDriver(257014172000L, 2L,"Maria Almeida" );
+        LocalDate dateOfBirth = LocalDate.of(1990, 8, 16);
+        Driver expectedDriver = generateDriver(2L,"Maria Almeida", dateOfBirth);
         Long driverIdToSearch = expectedDriver.getId();
         when(driverRepository.findById(driverIdToSearch)).thenReturn(java.util.Optional.of(expectedDriver));
 
@@ -71,7 +73,8 @@ class DriverAPITest {
 
     @Test
     void shouldCreateANewDriver() {
-        Driver expectedDriver = generateDriver(257014172000L, 3L,"Marcos Rocha" );
+        LocalDate dateOfBirth = LocalDate.of(1969, 5, 10);
+        Driver expectedDriver = generateDriver(3L,"Marcos Rocha", dateOfBirth);
         when(driverRepository.save(expectedDriver)).thenReturn(expectedDriver);
 
         Driver createdDriver = driverAPI.createDriver(expectedDriver);
@@ -80,12 +83,12 @@ class DriverAPITest {
         verify(driverRepository).save(expectedDriver);
     }
 
-    private Driver generateDriver(long timestamp, long id, String name) {
+    private Driver generateDriver(long id, String name, LocalDate dateOfBirth) {
         Driver driver = new Driver();
 
         driver.setId(id);
         driver.setName(name);
-        driver.setDateOfBirth(new Date(timestamp));
+        driver.setDateOfBirth(dateOfBirth);
 
         return driver;
     }
