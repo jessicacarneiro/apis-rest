@@ -55,6 +55,27 @@ class PassengerAPIIntTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(passenger.getName()));
     }
 
+    @Test
+    public void getPassengerWhenSearchingDriverById() throws Exception {
+        Passenger passenger = generatePassenger(2L, "Gustavo Lima");
+        Passenger passengerSaved = repository.save(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/passengers/" + passengerSaved.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(passengerSaved.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(passengerSaved.getName()));
+    }
+
+    @Test
+    public void getNotFoundWhenTryingToGetPassengerThatDoesNotExist() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/passengers/5")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
     private Passenger generatePassenger(Long id, String name) {
         Passenger passenger = new Passenger();
 

@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -45,6 +46,27 @@ class PassengerAPITest {
         assertThat(actualPassengers.size()).isEqualTo(expectedPassengers.size());
         assertThat(actualPassengers.get(0)).isEqualTo(expectedPassengers.get(0));
         verify(passengerRepository).findAll();
+    }
+
+    @Test
+    void shouldReturnPassengerWhenSearchingById() {
+        Passenger expectedPassenger = generatePassenger(2L, "Mario Campos");
+        when(passengerRepository.findById(expectedPassenger.getId())).thenReturn(java.util.Optional.of(expectedPassenger));
+
+        Passenger actualPassenger = passengerAPI.findPassenger(expectedPassenger.getId());
+
+        assertThat(actualPassenger.getId()).isEqualTo(expectedPassenger.getId());
+        assertThat(actualPassenger.getName()).isEqualTo(expectedPassenger.getName());
+        verify(passengerRepository).findById(expectedPassenger.getId());
+    }
+
+    @Test
+    void shouldReturnIdIfPassengerDoesNotExist() {
+        long passengerIdToSearch = 3L;
+        when(passengerRepository.findById(passengerIdToSearch)).thenReturn(null);
+
+        assertThatThrownBy(() -> passengerAPI.findPassenger(passengerIdToSearch)).isInstanceOf(NullPointerException.class);
+        verify(passengerRepository).findById(passengerIdToSearch);
     }
 
     private Passenger generatePassenger(Long id, String name) {
