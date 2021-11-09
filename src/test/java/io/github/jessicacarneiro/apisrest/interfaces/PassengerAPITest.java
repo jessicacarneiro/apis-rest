@@ -69,6 +69,18 @@ class PassengerAPITest {
         verify(passengerRepository).findById(passengerIdToSearch);
     }
 
+    @Test
+    void shouldCreateANewPassenger() {
+        Passenger expectedPassenger = generatePassenger(3L, "Matheus Aguiar");
+        when(passengerRepository.save(expectedPassenger)).thenReturn(expectedPassenger);
+
+        Passenger actualPassenger = passengerAPI.createPassenger(expectedPassenger);
+
+        assertThat(actualPassenger.getId()).isEqualTo(expectedPassenger.getId());
+        assertThat(actualPassenger.getName()).isEqualTo(expectedPassenger.getName());
+        verify(passengerRepository).save(expectedPassenger);
+    }
+
     private Passenger generatePassenger(Long id, String name) {
         Passenger passenger = new Passenger();
 

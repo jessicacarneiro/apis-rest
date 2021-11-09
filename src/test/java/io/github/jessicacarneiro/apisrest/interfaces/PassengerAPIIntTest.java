@@ -76,6 +76,28 @@ class PassengerAPIIntTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void createNewPassengerWithSuccess() throws Exception {
+        Passenger passenger = generatePassenger(3L, "Marília Mendonça");
+        String requestBody = generatePostBody(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/passengers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(passenger.getName()));
+    }
+
+    @Test
+    void shouldReturnBadRequestIfBodyNotProvidedWhenCreatingANewPassenger() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/passengers")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
     private Passenger generatePassenger(Long id, String name) {
         Passenger passenger = new Passenger();
 
@@ -83,5 +105,9 @@ class PassengerAPIIntTest {
         passenger.setName(name);
 
         return passenger;
+    }
+
+    private String generatePostBody(Passenger passenger) {
+        return "{\"name\":" + "\"" + passenger.getName() + "\"" + "}";
     }
 }
