@@ -111,6 +111,17 @@ class PassengerAPITest {
         verify(passengerRepository).save(expectedPassenger);
     }
 
+    @Test
+    void shouldDeletePassenger() {
+        Passenger passengerSaved = generatePassenger(3L, "Márcia Abílio");
+        when(passengerRepository.findById(passengerSaved.getId())).thenReturn(java.util.Optional.of(passengerSaved));
+
+        passengerAPI.deletePassenger(passengerSaved.getId());
+
+        verify(passengerRepository).findById(passengerSaved.getId());
+        verify(passengerRepository).delete(passengerSaved);
+    }
+
     private Passenger generatePassenger(Long id, String name) {
         Passenger passenger = new Passenger();
 

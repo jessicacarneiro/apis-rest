@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -176,6 +177,27 @@ class PassengerAPIIntTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldDeletePassengerWithSuccess() throws Exception {
+        Passenger passenger = generatePassenger(12L, "Alessandra Dias");
+        Passenger savedPassenger = repository.save(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/passengers/" + savedPassenger.getId()))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist());
+
+        assertThat(repository.findById(savedPassenger.getId())).isEmpty();
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenTryingToDeleteNonExistentPassenger() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/passengers/5"))
+                .andExpect(status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist());
     }
 
     private Passenger generatePassenger(Long id, String name) {

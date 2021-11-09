@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,5 +59,10 @@ public class PassengerAPI {
         foundPassenger.setName(Optional.ofNullable(passenger.getName()).orElse(foundPassenger.getName()));
 
         return repository.save(foundPassenger);
+    }
+
+    @DeleteMapping("/passengers/{id}")
+    public void deletePassenger(@PathVariable("id") Long id) {
+        repository.delete(findPassenger(id));
     }
 }
