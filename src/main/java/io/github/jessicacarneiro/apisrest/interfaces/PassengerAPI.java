@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,5 +38,14 @@ public class PassengerAPI {
     @PostMapping("/passengers")
     public Passenger createPassenger(@RequestBody Passenger passenger) {
         return repository.save(passenger);
+    }
+
+    @PutMapping("/passengers/{id}")
+    public Passenger fullyUpdatePassenger(@PathVariable("id") Long id, @RequestBody Passenger passenger) {
+        Passenger foundPassenger = findPassenger(id);
+
+        foundPassenger.setName(passenger.getName());
+
+        return repository.save(foundPassenger);
     }
 }

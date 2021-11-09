@@ -56,7 +56,7 @@ class PassengerAPIIntTest {
     }
 
     @Test
-    public void getPassengerWhenSearchingDriverById() throws Exception {
+    public void getPassengerWhenSearchingPassengerById() throws Exception {
         Passenger passenger = generatePassenger(2L, "Gustavo Lima");
         Passenger passengerSaved = repository.save(passenger);
 
@@ -96,6 +96,46 @@ class PassengerAPIIntTest {
                         .post("/passengers")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void fullyUpdateExistingPassenger() throws Exception {
+        Passenger passenger = generatePassenger(4L, "Marília Mendonça");
+        Passenger existingPassenger = repository.save(passenger);
+
+        passenger.setName("Rainha da Sofrência");
+        String requestBody = generatePostBody(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/passengers/" + existingPassenger.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(existingPassenger.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(passenger.getName()));
+    }
+
+    @Test
+    void shouldReturnBadRequestIfFullyUpdatingPassengerWithoutABody() throws Exception {
+        Passenger passenger = generatePassenger(8L, "Joaquim Ferreira");
+        Passenger existingPassenger = repository.save(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/passengers/" + existingPassenger.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnNotFoundIfTryingToFullyUpdateNonExistingPassenger() throws Exception {
+        Passenger passenger = generatePassenger(9L, "Leonardo Amaral");
+        String requestBody = generatePostBody(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .put("/passengers/" + passenger.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isNotFound());
     }
 
     private Passenger generatePassenger(Long id, String name) {
