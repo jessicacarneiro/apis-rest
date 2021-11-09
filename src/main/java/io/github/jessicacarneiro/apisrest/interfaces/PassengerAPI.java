@@ -3,11 +3,13 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,6 +47,15 @@ public class PassengerAPI {
         Passenger foundPassenger = findPassenger(id);
 
         foundPassenger.setName(passenger.getName());
+
+        return repository.save(foundPassenger);
+    }
+
+    @PatchMapping("/passengers/{id}")
+    public Passenger partiallyUpdatePassenger(@PathVariable("id") Long id, @RequestBody Passenger passenger) {
+        Passenger foundPassenger = findPassenger(id);
+
+        foundPassenger.setName(Optional.ofNullable(passenger.getName()).orElse(foundPassenger.getName()));
 
         return repository.save(foundPassenger);
     }

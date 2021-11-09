@@ -138,6 +138,46 @@ class PassengerAPIIntTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void partiallyUpdateExistingPassenger() throws Exception {
+        Passenger passenger = generatePassenger(10L, "Joca Soares");
+        Passenger existingPassenger = repository.save(passenger);
+
+        passenger.setName("Joca Severino");
+        String requestBody = generatePostBody(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .patch("/passengers/" + existingPassenger.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(existingPassenger.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(passenger.getName()));
+    }
+
+    @Test
+    void shouldReturnBadRequestIfPartiallyUpdatingPassengerWithoutABody() throws Exception {
+        Passenger passenger = generatePassenger(1L, "Manoel Bandeira");
+        Passenger existingPassenger = repository.save(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .patch("/passengers/" + existingPassenger.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnNotFoundIfTryingToPartiallyUpdateNonExistingPassenger() throws Exception {
+        Passenger passenger = generatePassenger(2L, "Daniel Amado");
+        String requestBody = generatePostBody(passenger);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .patch("/passengers/" + passenger.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isNotFound());
+    }
+
     private Passenger generatePassenger(Long id, String name) {
         Passenger passenger = new Passenger();
 
