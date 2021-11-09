@@ -15,29 +15,29 @@ import java.util.Optional;
 
 @Service
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/drivers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DriverAPI {
 
     @Autowired
     private DriverRepository repository;
 
-    @GetMapping("/drivers")
+    @GetMapping
     public List<Driver> listDrivers() {
         return repository.findAll();
     }
 
-    @GetMapping("/drivers/{id}")
+    @GetMapping("/{id}")
     public Driver findDriver(@PathVariable("id") Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/drivers")
+    @PostMapping
     public Driver createDriver(@RequestBody Driver driver) {
         return repository.save(driver);
     }
 
-    @PutMapping("/drivers/{id}")
+    @PutMapping("/{id}")
     public Driver fullyUpdateDriver(@PathVariable("id") Long id, @RequestBody Driver driver) {
         Driver foundDriver = findDriver(id);
 
@@ -47,7 +47,7 @@ public class DriverAPI {
         return repository.save(foundDriver);
     }
 
-    @PatchMapping("/drivers/{id}")
+    @PatchMapping("/{id}")
     public Driver partiallyUpdateDriver(@PathVariable("id") long id, @RequestBody Driver driver) {
         Driver foundDriver = findDriver(id);
 
@@ -57,7 +57,7 @@ public class DriverAPI {
         return repository.save(foundDriver);
     }
 
-    @DeleteMapping("/drivers/{id}")
+    @DeleteMapping("/{id}")
     public void deleteDriver(@PathVariable("id") Long id) {
         repository.delete(findDriver(id));
     }

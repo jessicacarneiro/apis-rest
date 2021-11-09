@@ -21,29 +21,29 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/passengers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PassengerAPI {
 
     @Autowired
     private PassengerRepository repository;
 
-    @GetMapping("/passengers")
+    @GetMapping
     public List<Passenger> listPassengers() {
         return repository.findAll();
     }
 
-    @GetMapping("/passengers/{id}")
+    @GetMapping("/{id}")
     public Passenger findPassenger(@PathVariable("id") Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/passengers")
+    @PostMapping
     public Passenger createPassenger(@RequestBody Passenger passenger) {
         return repository.save(passenger);
     }
 
-    @PutMapping("/passengers/{id}")
+    @PutMapping("/{id}")
     public Passenger fullyUpdatePassenger(@PathVariable("id") Long id, @RequestBody Passenger passenger) {
         Passenger foundPassenger = findPassenger(id);
 
@@ -52,7 +52,7 @@ public class PassengerAPI {
         return repository.save(foundPassenger);
     }
 
-    @PatchMapping("/passengers/{id}")
+    @PatchMapping("/{id}")
     public Passenger partiallyUpdatePassenger(@PathVariable("id") Long id, @RequestBody Passenger passenger) {
         Passenger foundPassenger = findPassenger(id);
 
@@ -61,7 +61,7 @@ public class PassengerAPI {
         return repository.save(foundPassenger);
     }
 
-    @DeleteMapping("/passengers/{id}")
+    @DeleteMapping("/{id}")
     public void deletePassenger(@PathVariable("id") Long id) {
         repository.delete(findPassenger(id));
     }
