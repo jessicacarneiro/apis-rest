@@ -8,10 +8,17 @@ Project from book "APIs REST" by Alexandre Saudate
 # Table of Contents
 1. [Maven commands](#maven-commands)
 2. [JaCoCo report](#jacoco-report)
+3. [Dependency check report](#dependency-check-report)
 
 ## Maven commands
 * `./mvnw test`: Run all tests
 * `./mvnw verify`: Run all tests and generate JaCoCo report
+* `./mvnw dependency-check:check`: Check for vulnerabilities in the dependencies
 
 ## JaCoCo report
-Run `./mvnw verify` to run all tests and generate a JaCoCo report. The report will be located at `/target/site/jacoco/index.html`
+Run `./mvnw verify` to run all tests and generate a JaCoCo report. The report will be located at
+`/target/site/jacoco/index.html`
+
+## Dependency check report
+Run `./mvnw dependency-check:check` to run the dependency check report. The report will be located at
+`/target/dependency-check-report.html`
