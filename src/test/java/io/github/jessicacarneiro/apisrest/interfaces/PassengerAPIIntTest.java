@@ -2,6 +2,7 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
+import io.github.jessicacarneiro.apisrest.infrastructure.TravelRequestRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,10 +27,14 @@ class PassengerAPIIntTest {
     private PassengerRepository repository;
 
     @Autowired
+    private TravelRequestRepository travelRequestRepository;
+
+    @Autowired
     private MockMvc mvc;
 
     @BeforeEach
     void setUp() {
+        travelRequestRepository.deleteAll();
         repository.deleteAll();
     }
 
