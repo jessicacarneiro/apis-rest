@@ -11,9 +11,6 @@ jobs:
           command: mvn -B -DskipTests clean package
       - run:
           name: Test
-          command: mvn test
-      - run:
-          name: JaCoCo
           command: mvn verify
       - coverage-reporter/send_report:
           coverage-reports: 'target/site/jacoco/jacoco.xml'
