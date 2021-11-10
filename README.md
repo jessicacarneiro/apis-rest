@@ -1,8 +1,7 @@
-# apis-rest
+# apis-rest [![CircleCI](https://circleci.com/gh/jessicacarneiro/apis-rest/tree/main.svg?style=svg)](https://circleci.com/gh/jessicacarneiro/apis-rest/tree/main)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a99723a805284b678bdd38617a8fb304)](https://app.codacy.com/gh/jessicacarneiro/apis-rest?utm_source=github.com&utm_medium=referral&utm_content=jessicacarneiro/apis-rest&utm_campaign=Badge_Grade_Settings)
-
-[![CircleCI](https://circleci.com/gh/jessicacarneiro/apis-rest/tree/main.svg?style=svg)](https://circleci.com/gh/jessicacarneiro/apis-rest/tree/main)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/e4269cf9efab419a8235052428650679)](https://www.codacy.com/gh/jessicacarneiro/apis-rest/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jessicacarneiro/apis-rest&utm_campaign=Badge_Coverage)
 
 Project from book "APIs REST" by Alexandre Saudate
 
