@@ -1,4 +1,7 @@
 # apis-rest
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a99723a805284b678bdd38617a8fb304)](https://app.codacy.com/gh/jessicacarneiro/apis-rest?utm_source=github.com&utm_medium=referral&utm_content=jessicacarneiro/apis-rest&utm_campaign=Badge_Grade_Settings)
+
 Project from book "APIs REST" by Alexandre Saudate
 
 # Table of Contents
