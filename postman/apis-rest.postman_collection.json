@@ -270,6 +270,32 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create travel request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passenger\": {\n        \"id\": 2,\n        \"name\": \"Jonas Soares\"\n    },\n    \"origin\": \"Rua das Flores, 345\",\n    \"destination\": \"Rua das Margaridas, 678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/travelRequests",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"travelRequests"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
