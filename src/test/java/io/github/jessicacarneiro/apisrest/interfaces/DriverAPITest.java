@@ -2,20 +2,22 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.infrastructure.DriverRepository;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.springframework.web.server.ResponseStatusException;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DriverAPITest {
@@ -64,9 +66,9 @@ class DriverAPITest {
     @Test
     void shouldReturnIdIfSearchedDriverDoesNotExist() {
         long driverIdToSearch = 3L;
-        when(driverRepository.findById(driverIdToSearch)).thenReturn(null);
+        when(driverRepository.findById(driverIdToSearch)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> driverAPI.findDriver(driverIdToSearch)).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> driverAPI.findDriver(driverIdToSearch)).isInstanceOf(ResponseStatusException.class);
         verify(driverRepository).findById(driverIdToSearch);
     }
 

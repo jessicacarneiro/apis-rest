@@ -1,9 +1,9 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
-import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
 import io.github.jessicacarneiro.apisrest.infrastructure.TravelRequestRepository;
+import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +42,7 @@ public class TravelRequestsAPIIntTest {
         Passenger passenger = generatePassenger(1L, "José Vieira");
         passenger = passengerRepository.save(passenger);
 
-        TravelRequest travelRequest = generateTravelRequest(passenger, "Belo Horizonte", "Juiz de Fora");
+        TravelRequestInput travelRequest = generateTravelRequest(passenger, "Belo Horizonte", "Juiz de Fora");
         String requestBody = generatePostBody(travelRequest);
 
         mvc.perform(MockMvcRequestBuilders
@@ -60,10 +60,10 @@ public class TravelRequestsAPIIntTest {
                 .andExpect(status().isBadRequest());
     }
 
-    private TravelRequest generateTravelRequest(Passenger passenger, String origin, String destination) {
-        TravelRequest travelRequest = new TravelRequest();
+    private TravelRequestInput generateTravelRequest(Passenger passenger, String origin, String destination) {
+        TravelRequestInput travelRequest = new TravelRequestInput();
 
-        travelRequest.setPassenger(passenger);
+        travelRequest.setPassengerId(passenger.getId());
         travelRequest.setOrigin(origin);
         travelRequest.setDestination(destination);
 
@@ -79,11 +79,10 @@ public class TravelRequestsAPIIntTest {
         return passenger;
     }
 
-    private String generatePostBody(TravelRequest travelRequest) {
-        return String.format("{\"passenger\": { \"id\": %d, \"name\": \"%s\" }, " +
+    private String generatePostBody(TravelRequestInput travelRequest) {
+        return String.format("{\"passengerId\": %d, " +
                         "\"origin\": \"%s\", \"destination\": \"%s\" }",
-                travelRequest.getPassenger().getId(),
-                travelRequest.getPassenger().getName(),
+                travelRequest.getPassengerId(),
                 travelRequest.getOrigin(),
                 travelRequest.getDestination()
         );

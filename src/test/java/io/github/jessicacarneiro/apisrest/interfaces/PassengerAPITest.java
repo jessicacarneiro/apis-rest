@@ -5,11 +5,13 @@ import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -63,9 +65,9 @@ class PassengerAPITest {
     @Test
     void shouldReturnIdIfPassengerDoesNotExist() {
         long passengerIdToSearch = 3L;
-        when(passengerRepository.findById(passengerIdToSearch)).thenReturn(null);
+        when(passengerRepository.findById(passengerIdToSearch)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> passengerAPI.findPassenger(passengerIdToSearch)).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> passengerAPI.findPassenger(passengerIdToSearch)).isInstanceOf(ResponseStatusException.class);
         verify(passengerRepository).findById(passengerIdToSearch);
     }
 

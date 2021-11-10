@@ -1,6 +1,7 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
-import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
+import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
+import io.github.jessicacarneiro.apisrest.interfaces.mapping.TravelRequestMapper;
 import io.github.jessicacarneiro.apisrest.services.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,8 +19,11 @@ public class TravelRequestAPI {
     @Autowired
     private TravelService travelService;
 
+    @Autowired
+    private TravelRequestMapper mapper;
+
     @PostMapping
-    public void createTravelRequest(@RequestBody TravelRequest travelRequest) {
-        travelService.saveTravelRequest(travelRequest);
+    public void createTravelRequest(@RequestBody TravelRequestInput input) {
+        travelService.saveTravelRequest(mapper.map(input));
     }
 }
