@@ -15,19 +15,14 @@ jobs:
       - run:
           name: JaCoCo
           command: mvn verify`
-  codacy-coverage-report:
-    docker:
-      - image: 'circleci/openjdk:8-jdk'
-    steps:
       - coverage-reporter/send_report:
-          coverage-reports: 'target/site/jacoco/jacoco.xml'
-          project-token: $CODACY_PROJECT_TOKEN
-
-orbs:
-  coverage-reporter: codacy/coverage-reporter@13.5.2
+          coverage-reports: target/site/jacoco/jacoco.xml 
+          skip: false 
 
 workflows:
   build:
     jobs:
       - build-and-test
-      - codacy-coverage-report
+
+orbs:
+  coverage-reporter: codacy/coverage-reporter@13.5.2
