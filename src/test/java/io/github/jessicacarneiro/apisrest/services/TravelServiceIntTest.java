@@ -4,7 +4,6 @@ import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
 import io.github.jessicacarneiro.apisrest.infrastructure.TravelRequestRepository;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,21 +28,18 @@ public class TravelServiceIntTest {
     void shouldCreateTravelRequestWithCorrectFields() {
         String passengerName = "Lucas Mendonça";
         String origin = "Avenida Cristiano Machado, 890";
-        String destination = "Avenida Arthur Bernades, 25";
+        String destination = "Avenida Arthur Bernardes, 25";
 
         Passenger passenger = generatePassenger(passengerName);
         passenger = passengerRepository.save(passenger);
-        TravelRequest travelRequest = generateTravelRequest(passenger, origin, destination);
-        service.saveTravelRequest(travelRequest);
+        TravelRequest expectedTravelRequest = generateTravelRequest(passenger, origin, destination);
 
-        List<TravelRequest> travelRequests = travelRequestRepository.findByPassenger(travelRequest.getPassenger());
-        TravelRequest savedTravelRequest = travelRequests.get(0);
+        TravelRequest actualTravelRequest = service.saveTravelRequest(expectedTravelRequest);
 
-        assertThat(travelRequests.size()).isEqualTo(1);
-        assertThat(savedTravelRequest.getPassenger().getName()).isEqualTo(passengerName);
-        assertThat(savedTravelRequest.getOrigin()).isEqualTo(origin);
-        assertThat(savedTravelRequest.getDestination()).isEqualTo(destination);
-        assertThat(savedTravelRequest.getCreationDate()).isNotNull();
+        assertThat(actualTravelRequest.getPassenger().getName()).isEqualTo(passengerName);
+        assertThat(actualTravelRequest.getOrigin()).isEqualTo(origin);
+        assertThat(actualTravelRequest.getDestination()).isEqualTo(destination);
+        assertThat(actualTravelRequest.getCreationDate()).isNotNull();
     }
 
     @Test

@@ -16,10 +16,10 @@ public class TravelService {
         this.repository = repository;
     }
 
-    public void saveTravelRequest(TravelRequest travelRequest) {
+    public TravelRequest saveTravelRequest(TravelRequest travelRequest) {
         travelRequest.setStatus(CREATED);
         travelRequest.setCreationDate(OffsetDateTime.now());
 
-        repository.save(travelRequest);
+        return repository.save(travelRequest);
     }
 }

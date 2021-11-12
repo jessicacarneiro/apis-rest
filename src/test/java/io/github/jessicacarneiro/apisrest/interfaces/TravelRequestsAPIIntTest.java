@@ -1,6 +1,7 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
+import io.github.jessicacarneiro.apisrest.domain.TravelRequestStatus;
 import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
 import io.github.jessicacarneiro.apisrest.infrastructure.TravelRequestRepository;
 import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,6 +44,27 @@ public class TravelRequestsAPIIntTest {
         Passenger passenger = generatePassenger(1L, "José Vieira");
         passenger = passengerRepository.save(passenger);
 
+        String origin = "Belo Horizonte";
+        String destination = "Juiz de Fora";
+        TravelRequestInput travelRequest = generateTravelRequest(passenger, origin, destination);
+        String requestBody = generatePostBody(travelRequest);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/travelRequests")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.origin").value(origin))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(TravelRequestStatus.CREATED.name()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.creationDate").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$._links.passenger.title").value(passenger.getName()));
+    }
+
+    @Test
+    void returnNotFoundIfPassengerDoesNotExist() throws Exception {
+        Passenger passenger = generatePassenger(1L, "José Vieira");
+
         TravelRequestInput travelRequest = generateTravelRequest(passenger, "Belo Horizonte", "Juiz de Fora");
         String requestBody = generatePostBody(travelRequest);
 
@@ -49,7 +72,7 @@ public class TravelRequestsAPIIntTest {
                         .post("/travelRequests")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isOk());
+                .andExpect(status().isNotFound());
     }
 
     @Test

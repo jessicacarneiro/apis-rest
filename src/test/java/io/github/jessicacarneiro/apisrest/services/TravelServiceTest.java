@@ -8,22 +8,26 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TravelServiceTest {
     @Mock
-    private TravelRequestRepository travelRequestRepository;
+    private TravelRequestRepository repository;
 
     @InjectMocks
     private TravelService travelService;
 
     @Test
     void shouldCreateTravelRequest() {
-        TravelRequest request = new TravelRequest();
+        TravelRequest expectedRequest = new TravelRequest();
+        when(repository.save(expectedRequest)).thenReturn(expectedRequest);
 
-        travelService.saveTravelRequest(request);
+        TravelRequest actualRequest = travelService.saveTravelRequest(expectedRequest);
 
-        verify(travelRequestRepository).save(request);
+        assertThat(actualRequest).isEqualTo(expectedRequest);
+        verify(repository).save(expectedRequest);
     }
 }

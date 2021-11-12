@@ -1,9 +1,12 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
+import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
 import io.github.jessicacarneiro.apisrest.interfaces.mapping.TravelRequestMapper;
+import io.github.jessicacarneiro.apisrest.interfaces.output.TravelRequestOutput;
 import io.github.jessicacarneiro.apisrest.services.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +26,10 @@ public class TravelRequestAPI {
     private TravelRequestMapper mapper;
 
     @PostMapping
-    public void createTravelRequest(@RequestBody TravelRequestInput input) {
-        travelService.saveTravelRequest(mapper.map(input));
+    public EntityModel<TravelRequestOutput> createTravelRequest(@RequestBody TravelRequestInput input) {
+        TravelRequest travelRequest = travelService.saveTravelRequest(mapper.map(input));
+        TravelRequestOutput output = mapper.map(travelRequest);
+
+        return mapper.buildOutputModel(travelRequest, output);
     }
 }
