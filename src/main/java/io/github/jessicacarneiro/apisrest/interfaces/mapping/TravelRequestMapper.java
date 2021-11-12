@@ -48,11 +48,12 @@ public class TravelRequestMapper {
         EntityModel<TravelRequestOutput> model = new EntityModel<>(output);
 
         Link passengerLink = WebMvcLinkBuilder.linkTo(PassengerAPI.class)
+                .slash(travelRequest.getPassenger().getId())
                 .withRel("passenger")
                 .withTitle(travelRequest.getPassenger().getName());
 
         model.add(passengerLink);
 
-        return model;
+        return EntityModel.of(output).add(passengerLink);
     }
 }

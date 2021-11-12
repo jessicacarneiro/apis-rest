@@ -4,7 +4,6 @@ import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequestStatus;
 import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
-import io.github.jessicacarneiro.apisrest.interfaces.PassengerAPI;
 import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
 import io.github.jessicacarneiro.apisrest.interfaces.output.TravelRequestOutput;
 import java.time.OffsetDateTime;
@@ -16,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.hateoas.LinkRelation;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -100,18 +99,16 @@ class TravelRequestMapperTest {
         output.setStatus(request.getStatus());
         output.setCreationDate(request.getCreationDate());
 
-        Link expectedLink = WebMvcLinkBuilder.linkTo(PassengerAPI.class)
-                .withRel("passenger")
-                .withTitle(request.getPassenger().getName());
-
         EntityModel<TravelRequestOutput> model = mapper.buildOutputModel(request, output);
+        Optional<Link> link = model.getLink(LinkRelation.of("passenger"));
 
         assertThat(model.getContent().getId()).isEqualTo(output.getId());
         assertThat(model.getContent().getCreationDate()).isEqualTo(output.getCreationDate());
         assertThat(model.getContent().getDestination()).isEqualTo(output.getDestination());
         assertThat(model.getContent().getOrigin()).isEqualTo(output.getOrigin());
         assertThat(model.getContent().getStatus()).isEqualTo(output.getStatus());
-        assertThat(model.getLinks().getLink("passenger").get()).isEqualTo(expectedLink);
+        assertThat(link.get().getHref()).isEqualTo("/passengers/" + passenger.getId());
+        assertThat(link.get().getTitle()).isEqualTo(passenger.getName());
     }
 
     private Passenger generatePassenger(long id, String name) {
