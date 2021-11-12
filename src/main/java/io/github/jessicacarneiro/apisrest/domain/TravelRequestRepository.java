@@ -1,7 +1,5 @@
-package io.github.jessicacarneiro.apisrest.infrastructure;
+package io.github.jessicacarneiro.apisrest.domain;
 
-import io.github.jessicacarneiro.apisrest.domain.Passenger;
-import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,7 +1,7 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Driver;
-import io.github.jessicacarneiro.apisrest.infrastructure.DriverRepository;
+import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

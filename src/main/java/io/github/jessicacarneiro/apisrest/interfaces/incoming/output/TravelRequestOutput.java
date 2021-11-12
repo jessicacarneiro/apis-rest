@@ -1,4 +1,4 @@
-package io.github.jessicacarneiro.apisrest.interfaces.output;
+package io.github.jessicacarneiro.apisrest.interfaces.incoming.output;
 
 import io.github.jessicacarneiro.apisrest.domain.TravelRequestStatus;
 import java.time.OffsetDateTime;

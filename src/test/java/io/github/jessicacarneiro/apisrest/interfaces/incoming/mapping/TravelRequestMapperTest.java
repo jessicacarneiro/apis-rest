@@ -1,11 +1,11 @@
-package io.github.jessicacarneiro.apisrest.interfaces.mapping;
+package io.github.jessicacarneiro.apisrest.interfaces.incoming.mapping;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequestStatus;
-import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
-import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
-import io.github.jessicacarneiro.apisrest.interfaces.output.TravelRequestOutput;
+import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.input.TravelRequestInput;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.TravelRequestOutput;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;

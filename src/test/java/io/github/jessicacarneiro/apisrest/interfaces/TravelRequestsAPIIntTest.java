@@ -2,9 +2,9 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequestStatus;
-import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
-import io.github.jessicacarneiro.apisrest.infrastructure.TravelRequestRepository;
-import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
+import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
+import io.github.jessicacarneiro.apisrest.domain.TravelRequestRepository;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.input.TravelRequestInput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

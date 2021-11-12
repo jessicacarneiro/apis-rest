@@ -1,7 +1,7 @@
 package io.github.jessicacarneiro.apisrest.services;
 
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
-import io.github.jessicacarneiro.apisrest.infrastructure.TravelRequestRepository;
+import io.github.jessicacarneiro.apisrest.domain.TravelRequestRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

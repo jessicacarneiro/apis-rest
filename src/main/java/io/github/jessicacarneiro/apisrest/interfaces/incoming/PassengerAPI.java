@@ -1,7 +1,7 @@
-package io.github.jessicacarneiro.apisrest.interfaces;
+package io.github.jessicacarneiro.apisrest.interfaces.incoming;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
-import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
+import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

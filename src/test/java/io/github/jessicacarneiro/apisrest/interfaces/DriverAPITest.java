@@ -1,7 +1,8 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Driver;
-import io.github.jessicacarneiro.apisrest.infrastructure.DriverRepository;
+import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.DriverAPI;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;

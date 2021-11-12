@@ -2,8 +2,8 @@ package io.github.jessicacarneiro.apisrest.services;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
-import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
-import io.github.jessicacarneiro.apisrest.infrastructure.TravelRequestRepository;
+import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
+import io.github.jessicacarneiro.apisrest.domain.TravelRequestRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

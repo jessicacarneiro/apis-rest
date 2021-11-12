@@ -1,9 +1,9 @@
-package io.github.jessicacarneiro.apisrest.interfaces;
+package io.github.jessicacarneiro.apisrest.interfaces.incoming;
 
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
-import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
-import io.github.jessicacarneiro.apisrest.interfaces.mapping.TravelRequestMapper;
-import io.github.jessicacarneiro.apisrest.interfaces.output.TravelRequestOutput;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.input.TravelRequestInput;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.mapping.TravelRequestMapper;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.TravelRequestOutput;
 import io.github.jessicacarneiro.apisrest.services.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;

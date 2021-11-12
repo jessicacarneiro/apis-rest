@@ -1,7 +1,7 @@
-package io.github.jessicacarneiro.apisrest.interfaces;
+package io.github.jessicacarneiro.apisrest.interfaces.incoming;
 
 import io.github.jessicacarneiro.apisrest.domain.Driver;
-import io.github.jessicacarneiro.apisrest.infrastructure.DriverRepository;
+import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
