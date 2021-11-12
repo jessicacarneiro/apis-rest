@@ -3,8 +3,13 @@ package io.github.jessicacarneiro.apisrest.interfaces.mapping;
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.infrastructure.PassengerRepository;
+import io.github.jessicacarneiro.apisrest.interfaces.PassengerAPI;
 import io.github.jessicacarneiro.apisrest.interfaces.input.TravelRequestInput;
+import io.github.jessicacarneiro.apisrest.interfaces.output.TravelRequestOutput;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,5 +30,29 @@ public class TravelRequestMapper {
         travelRequest.setDestination(input.getDestination());
 
         return travelRequest;
+    }
+
+    public TravelRequestOutput map(TravelRequest travelRequest) {
+        TravelRequestOutput output = new TravelRequestOutput();
+
+        output.setId(travelRequest.getId());
+        output.setOrigin(travelRequest.getOrigin());
+        output.setDestination(travelRequest.getDestination());
+        output.setCreationDate(travelRequest.getCreationDate());
+        output.setStatus(travelRequest.getStatus());
+
+        return output;
+    }
+
+    public EntityModel<TravelRequestOutput> buildOutputModel(TravelRequest travelRequest, TravelRequestOutput output) {
+        EntityModel<TravelRequestOutput> model = new EntityModel<>(output);
+
+        Link passengerLink = WebMvcLinkBuilder.linkTo(PassengerAPI.class)
+                .withRel("passenger")
+                .withTitle(travelRequest.getPassenger().getName());
+
+        model.add(passengerLink);
+
+        return model;
     }
 }
