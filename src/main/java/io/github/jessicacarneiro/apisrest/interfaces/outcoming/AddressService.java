@@ -3,6 +3,7 @@ package io.github.jessicacarneiro.apisrest.interfaces.outcoming;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.AddressResponse;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Position;
 import java.util.Collections;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +16,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class AddressService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     private final HttpHeaders headers = new HttpHeaders();
 
@@ -41,7 +43,7 @@ public class AddressService {
         // TODO: handle specific exceptions
         try {
             HttpEntity<AddressResponse> response = restTemplate.exchange(
-                    builder.toUriString(),
+                    builder.build(false).toUriString(),
                     HttpMethod.GET,
                     entity,
                     AddressResponse.class);

@@ -4,6 +4,7 @@ import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Position;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.RouteResponse;
 import java.util.Collections;
 import java.util.Locale;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +17,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class RouteService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     private final HttpHeaders headers = new HttpHeaders();
 
@@ -43,7 +45,7 @@ public class RouteService {
         // TODO: handle specific exceptions
         try {
             HttpEntity<RouteResponse> response = restTemplate.exchange(
-                    builder.toUriString(),
+                    builder.build(false).toUriString(),
                     HttpMethod.GET,
                     entity,
                     RouteResponse.class);
