@@ -32,6 +32,6 @@ public class MapsAPI {
 
     @PostMapping("/route")
     public Integer getRoute(@RequestBody RouteRequest request) {
-        return routeService.getDistanceFromPlaces(request.getOrigin(), request.getDestination());
+        return routeService.getDistanceInMeters(request.getOrigin(), request.getDestination());
     }
 }

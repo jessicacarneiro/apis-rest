@@ -32,7 +32,7 @@ public class RouteService {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
     }
 
-    public Integer getDistanceFromPlaces(Position origin, Position destination) {
+    public Integer getDistanceInMeters(Position origin, Position destination) {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri)
