@@ -7,7 +7,6 @@ import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.AddressRes
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Position;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Result;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +58,8 @@ class AddressServiceTest {
                 format("%s?api-version=1.0&subscription-key=%s&query=%s", baseUrl, apiKey,
                         URLEncoder.encode(address, "UTF-8").replace("+", "%20"));
 
-        BigDecimal latitude = BigDecimal.valueOf(35.58616);
-        BigDecimal longitude = BigDecimal.valueOf(-18.5893);
+        double latitude = 35.58616;
+        double longitude = -18.5893;
 
         AddressResponse response = generateAddressResponse(latitude, longitude);
         String responseBody = objectWriter.writeValueAsString(response);
@@ -106,7 +105,7 @@ class AddressServiceTest {
         server.verify();
     }
 
-    private AddressResponse generateAddressResponse(BigDecimal latitude, BigDecimal longitude) {
+    private AddressResponse generateAddressResponse(double latitude, double longitude) {
         Position position = new Position();
         position.setLat(latitude);
         position.setLon(longitude);

@@ -8,7 +8,6 @@ import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Route;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.RouteResponse;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Summary;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -54,8 +53,8 @@ class RouteServiceTest {
     void shouldReturnCoordinatesIfAddressIsFound() throws JsonProcessingException, UnsupportedEncodingException {
         MockRestServiceServer server = setUp();
 
-        Position origin = generatePosition(new BigDecimal(-12.4452), new BigDecimal(24.69340));
-        Position destination = generatePosition(new BigDecimal(-12.3252), new BigDecimal(25.1402));
+        Position origin = generatePosition(-12.4452, 24.69340);
+        Position destination = generatePosition(-12.3252,25.1402);
 
         String url = String.
                 format(Locale.US, "%s?api-version=1.0&subscription-key=%s&query=%f,%f:%f,%f", baseUrl, apiKey,
@@ -85,8 +84,8 @@ class RouteServiceTest {
     void shouldReturnNullIfNoResponseIsReturned() throws JsonProcessingException, UnsupportedEncodingException {
         MockRestServiceServer server = setUp();
 
-        Position origin = generatePosition(new BigDecimal(38.4452), new BigDecimal(-18.69340));
-        Position destination = generatePosition(new BigDecimal(39.3252), new BigDecimal(-19.1402));
+        Position origin = generatePosition(38.4452, -18.69340);
+        Position destination = generatePosition(39.3252, -19.1402);
 
         String url = String.
                 format(Locale.US, "%s?api-version=1.0&subscription-key=%s&query=%f,%f:%f,%f", baseUrl, apiKey,
@@ -105,7 +104,7 @@ class RouteServiceTest {
         server.verify();
     }
 
-    private Position generatePosition(BigDecimal latitude, BigDecimal longitude) {
+    private Position generatePosition(double latitude, double longitude) {
         Position position = new Position();
         position.setLat(latitude);
         position.setLon(longitude);
