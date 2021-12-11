@@ -4,6 +4,7 @@ import io.github.jessicacarneiro.apisrest.interfaces.incoming.input.RouteRequest
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.AddressService;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.RouteService;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Position;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class MapsAPI {
     }
 
     @PostMapping("/route")
-    public Integer getRoute(@RequestBody RouteRequest request) {
-        return routeService.getDistanceInMeters(request.getOrigin(), request.getDestination());
+    public List<Integer> getRoute(@RequestBody RouteRequest request) {
+        return routeService.getTravelTimeInSeconds(request.getOrigin(), request.getDestination());
     }
 }

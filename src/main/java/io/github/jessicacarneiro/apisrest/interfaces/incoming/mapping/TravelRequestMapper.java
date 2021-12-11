@@ -1,11 +1,13 @@
 package io.github.jessicacarneiro.apisrest.interfaces.incoming.mapping;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
-import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
+import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.PassengerAPI;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.input.TravelRequestInput;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.TravelRequestOutput;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
@@ -55,5 +57,12 @@ public class TravelRequestMapper {
         model.add(passengerLink);
 
         return EntityModel.of(output).add(passengerLink);
+    }
+
+    public List<EntityModel<TravelRequestOutput>> buildOutputModel(List<TravelRequest> travelRequests) {
+        return travelRequests
+                .stream()
+                .map(tr -> buildOutputModel(tr, map(tr)))
+                .collect(Collectors.toList());
     }
 }

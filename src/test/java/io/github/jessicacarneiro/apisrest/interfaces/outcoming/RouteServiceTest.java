@@ -4,11 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Position;
-import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Route;
-import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.RouteResponse;
-import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Summary;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.junit.jupiter.api.Test;
@@ -60,23 +56,22 @@ class RouteServiceTest {
                 format(Locale.US, "%s?api-version=1.0&subscription-key=%s&query=%f,%f:%f,%f", baseUrl, apiKey,
                         origin.getLat(), origin.getLon(), destination.getLat(), destination.getLon());
 
-        int expectedDistanceInMeters = 12458;
-        RouteResponse response = generateRouteResponse(expectedDistanceInMeters);
-        String responseBody = objectWriter.writeValueAsString(response);
+        int expectedTravelTime = 12458;
+        String response = generateRouteResponse(expectedTravelTime);
 
         server.expect(
                 ExpectedCount.once(),
                 MockRestRequestMatchers.requestTo(url)
         ).andRespond(
                 MockRestResponseCreators.withSuccess(
-                        responseBody,
+                        response,
                         MediaType.APPLICATION_JSON
                 )
         );
 
-        int actualDistanceInMeters = service.getDistanceInMeters(origin, destination);
+        List<Integer> actualTravelTime = service.getTravelTimeInSeconds(origin, destination);
 
-        assertThat(actualDistanceInMeters).isEqualTo(expectedDistanceInMeters);
+        assertThat(actualTravelTime.get(0)).isEqualTo(expectedTravelTime);
         server.verify();
     }
 
@@ -98,9 +93,9 @@ class RouteServiceTest {
                 MockRestResponseCreators.withBadRequest()
         );
 
-        Integer actualDistanceInMeters = service.getDistanceInMeters(origin, destination);
+        List<Integer> actualTravelTime = service.getTravelTimeInSeconds(origin, destination);
 
-        assertThat(actualDistanceInMeters).isNull();
+        assertThat(actualTravelTime).isNull();
         server.verify();
     }
 
@@ -112,20 +107,15 @@ class RouteServiceTest {
         return position;
     }
 
-    private RouteResponse generateRouteResponse(int distance) {
-        Summary summary = new Summary();
-        summary.setLengthInMeters(distance);
-
-        Route route = new Route();
-        route.setSummary(summary);
-
-        List<Route> routes = new ArrayList<>();
-        routes.add(route);
-
-        RouteResponse response = new RouteResponse();
-
-        response.setRoutes(routes);
-
-        return response;
+    private String generateRouteResponse(int expectedTravelTime) {
+        return "{\n" +
+                "    \"routes\": [\n" +
+                "        {\n" +
+                "            \"summary\": {\n" +
+                "                \"travelTimeInSeconds\": " + expectedTravelTime + "\n" +
+                "            }\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
     }
 }
