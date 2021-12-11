@@ -22,7 +22,7 @@ public class TravelServiceIntTest {
     private TravelRequestRepository travelRequestRepository;
 
     @Autowired
-    private final TravelService service = new TravelService(travelRequestRepository);
+    private final TravelService service = new TravelService(travelRequestRepository, null, null);
 
     @Test
     void shouldCreateTravelRequestWithCorrectFields() {

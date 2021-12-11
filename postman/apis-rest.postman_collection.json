@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d0aaedfc-ac12-4bd7-826b-b66d228daebe",
+		"_postman_id": "8e62db44-325c-4bba-9437-4d767efeaeb2",
 		"name": "apis-rest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -278,7 +278,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"passenger\": {\n        \"id\": 2,\n        \"name\": \"Jonas Soares\"\n    },\n    \"origin\": \"Rua das Flores, 345\",\n    \"destination\": \"Rua das Margaridas, 678\"\n}",
+					"raw": "{\n    \"passengerId\": 1,\n    \"origin\": \"215 Centre St, New York\",\n    \"destination\": \"235 E 4th St, New York\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -292,6 +292,30 @@
 					],
 					"path": [
 						"travelRequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get created nearby travel requests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/travelRequests/nearby?currentAddress=150 Centre St, New York",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"travelRequests",
+						"nearby"
+					],
+					"query": [
+						{
+							"key": "currentAddress",
+							"value": "150 Centre St, New York"
+						}
 					]
 				}
 			},

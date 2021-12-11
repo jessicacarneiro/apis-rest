@@ -1,14 +1,16 @@
 package io.github.jessicacarneiro.apisrest.interfaces.outcoming;
 
+import com.jayway.jsonpath.JsonPath;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Position;
-import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.RouteResponse;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -32,7 +34,7 @@ public class RouteService {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
     }
 
-    public Integer getDistanceInMeters(Position origin, Position destination) {
+    public List<Integer> getTravelTimeInSeconds(Position origin, Position destination) {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri)
@@ -44,13 +46,15 @@ public class RouteService {
         // TODO: add logs
         // TODO: handle specific exceptions
         try {
-            HttpEntity<RouteResponse> response = restTemplate.exchange(
+            String jsonResult = restTemplate.getForObject(
                     builder.build(false).toUriString(),
-                    HttpMethod.GET,
-                    entity,
-                    RouteResponse.class);
+                    String.class,
+                    origin,
+                    destination);
 
-            return response.getBody().getRoutes().get(0).getSummary().getLengthInMeters();
+            JSONArray rawResults = JsonPath.parse(jsonResult).read("$..routes[0].summary.travelTimeInSeconds");
+
+            return rawResults.stream().map(it -> ((Integer) it)).collect(Collectors.toList());
         } catch (Exception exception) {
             return null;
         }

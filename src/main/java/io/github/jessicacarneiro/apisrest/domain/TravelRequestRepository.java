@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TravelRequestRepository extends JpaRepository<TravelRequest, Long> {
     List<TravelRequest> findByPassenger(Passenger passenger);
+
+    List<TravelRequest> findByStatus(TravelRequestStatus status);
 }

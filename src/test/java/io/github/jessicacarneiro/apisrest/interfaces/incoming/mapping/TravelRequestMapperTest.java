@@ -1,12 +1,14 @@
 package io.github.jessicacarneiro.apisrest.interfaces.incoming.mapping;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
+import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequestStatus;
-import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.input.TravelRequestInput;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.TravelRequestOutput;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -92,12 +94,7 @@ class TravelRequestMapperTest {
 
         TravelRequest request = generateTravelRequest(passenger, 4L, "Avenida Presidente Antonio Carlos, 245", "Rua do Amendoim, 25");
 
-        TravelRequestOutput output = new TravelRequestOutput();
-        output.setId(request.getId());
-        output.setOrigin(request.getOrigin());
-        output.setDestination(request.getDestination());
-        output.setStatus(request.getStatus());
-        output.setCreationDate(request.getCreationDate());
+        TravelRequestOutput output = generateTravelRequestOutput(request);
 
         EntityModel<TravelRequestOutput> model = mapper.buildOutputModel(request, output);
         Optional<Link> link = model.getLink(LinkRelation.of("passenger"));
@@ -109,6 +106,50 @@ class TravelRequestMapperTest {
         assertThat(model.getContent().getStatus()).isEqualTo(output.getStatus());
         assertThat(link.get().getHref()).isEqualTo("/passengers/" + passenger.getId());
         assertThat(link.get().getTitle()).isEqualTo(passenger.getName());
+    }
+
+    @Test
+    void shouldCreateEntityModelForListOfOutput() {
+        Passenger passenger1 = generatePassenger(3L, "Marcelo Barbosa");
+        Passenger passenger2 = generatePassenger(12L, "Daniel Rocha");
+
+        TravelRequest request1 = generateTravelRequest(passenger1, 4L, "Avenida Presidente Antonio Carlos, 245", "Rua do Amendoim, 25");
+        TravelRequest request2 = generateTravelRequest(passenger2, 5L,  "Rua do Amendoim, 25", "Avenida Presidente Antonio Carlos, 245");
+
+        List<EntityModel<TravelRequestOutput>> models = mapper.buildOutputModel(Arrays.asList(request1, request2));
+        assertThat(models.size()).isEqualTo(2);
+
+        assertThat(models.get(0).getContent().getId()).isEqualTo(request1.getId());
+        assertThat(models.get(0).getContent().getCreationDate()).isEqualTo(request1.getCreationDate());
+        assertThat(models.get(0).getContent().getDestination()).isEqualTo(request1.getDestination());
+        assertThat(models.get(0).getContent().getOrigin()).isEqualTo(request1.getOrigin());
+        assertThat(models.get(0).getContent().getStatus()).isEqualTo(request1.getStatus());
+
+        Optional<Link> link1 = models.get(0).getLink(LinkRelation.of("passenger"));
+        assertThat(link1.get().getHref()).isEqualTo("/passengers/" + passenger1.getId());
+        assertThat(link1.get().getTitle()).isEqualTo(passenger1.getName());
+
+        assertThat(models.get(1).getContent().getId()).isEqualTo(request2.getId());
+        assertThat(models.get(1).getContent().getCreationDate()).isEqualTo(request2.getCreationDate());
+        assertThat(models.get(1).getContent().getDestination()).isEqualTo(request2.getDestination());
+        assertThat(models.get(1).getContent().getOrigin()).isEqualTo(request2.getOrigin());
+        assertThat(models.get(1).getContent().getStatus()).isEqualTo(request2.getStatus());
+
+        Optional<Link> link2 = models.get(1).getLink(LinkRelation.of("passenger"));
+        assertThat(link2.get().getHref()).isEqualTo("/passengers/" + passenger2.getId());
+        assertThat(link2.get().getTitle()).isEqualTo(passenger2.getName());
+    }
+
+    private TravelRequestOutput generateTravelRequestOutput(TravelRequest request) {
+        TravelRequestOutput output = new TravelRequestOutput();
+
+        output.setId(request.getId());
+        output.setOrigin(request.getOrigin());
+        output.setDestination(request.getDestination());
+        output.setStatus(request.getStatus());
+        output.setCreationDate(request.getCreationDate());
+
+        return output;
     }
 
     private Passenger generatePassenger(long id, String name) {
