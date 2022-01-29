@@ -14,7 +14,7 @@ jobs:
           command: mvn verify
       - coverage-reporter/send_report:
           coverage-reports: 'target/site/jacoco/jacoco.xml'
-          skip: false 
+          skip: false
 
 workflows:
   build:

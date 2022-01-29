@@ -9,6 +9,7 @@ Project from book "APIs REST" by Alexandre Saudate
 1. [Commands](#commands)
 2. [JaCoCo report](#jacoco-report)
 3. [Dependency check report](#dependency-check-report)
+4. [To Do](#todo)
 
 ## Commands
 * `make run`: Start application
@@ -23,3 +24,7 @@ Run `make verify` or `./mvnw verify` to run all tests and generate a JaCoCo repo
 ## Dependency check report
 Run `make dependency_check` or `./mvnw dependency-check:check` to run the dependency check report. The report will be located at
 `/target/dependency-check-report.html`
+
+## TODO
+
+[ ] Create script to validate dependency check report in the pipeline
