@@ -12,7 +12,7 @@ Project from book "APIs REST" by Alexandre Saudate
 
 ## Commands
 * `make run`: Start application
-* `make test`: Run all tests
+* `make test`: Run unit tests
 * `make verify`: Run all tests and generate JaCoCo report
 * `make dependency_check`: Check for vulnerabilities in the dependencies
 
