@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @SpringBootTest
-public class TravelServiceIntTest {
+public class TravelServiceTestIT {
 
     @Autowired
     private PassengerRepository passengerRepository;
