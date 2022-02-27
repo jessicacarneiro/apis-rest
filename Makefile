@@ -8,7 +8,7 @@ run: clean
 	./mvnw spring-boot:run
 
 test: clean
-	./mvnw test
+	./mvnw test -e -Dspring.profiles.active=test
 
 verify: clean
 	./mvnw verify

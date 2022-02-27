@@ -24,7 +24,7 @@ public class RouteService {
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    @Value("${azure.maps.route.base.uri}")
+    @Value("${azure.maps.base.uri}")
     private String baseUri;
     @Value("${azure.maps.api.key}")
     private String apiKey;
@@ -37,7 +37,7 @@ public class RouteService {
     public List<Integer> getTravelTimeInSeconds(Position origin, Position destination) {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri + "/route/directions/json")
                 .queryParam("api-version", "1.0")
                 .queryParam("subscription-key", apiKey)
                 .queryParam("query", String.format(Locale.US, "%f,%f:%f,%f",

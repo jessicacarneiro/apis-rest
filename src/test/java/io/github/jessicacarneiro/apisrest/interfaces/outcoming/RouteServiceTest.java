@@ -33,7 +33,7 @@ class RouteServiceTest {
     @Autowired
     private RouteService service;
 
-    @Value("${azure.maps.route.base.uri}")
+    @Value("${azure.maps.base.uri}")
     private String baseUrl;
 
     @Value("${azure.maps.api.key}")
@@ -53,7 +53,7 @@ class RouteServiceTest {
         Position destination = generatePosition(-12.3252,25.1402);
 
         String url = String.
-                format(Locale.US, "%s?api-version=1.0&subscription-key=%s&query=%f,%f:%f,%f", baseUrl, apiKey,
+                format(Locale.US, "%s/route/directions/json?api-version=1.0&subscription-key=%s&query=%f,%f:%f,%f", baseUrl, apiKey,
                         origin.getLat(), origin.getLon(), destination.getLat(), destination.getLon());
 
         int expectedTravelTime = 12458;
@@ -83,7 +83,7 @@ class RouteServiceTest {
         Position destination = generatePosition(39.3252, -19.1402);
 
         String url = String.
-                format(Locale.US, "%s?api-version=1.0&subscription-key=%s&query=%f,%f:%f,%f", baseUrl, apiKey,
+                format(Locale.US, "%s/route/directions/json?api-version=1.0&subscription-key=%s&query=%f,%f:%f,%f", baseUrl, apiKey,
                         origin.getLat(), origin.getLon(), destination.getLat(), destination.getLon());
 
         server.expect(

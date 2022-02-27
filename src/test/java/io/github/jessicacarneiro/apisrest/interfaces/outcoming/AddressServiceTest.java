@@ -37,7 +37,7 @@ class AddressServiceTest {
     @Autowired
     private AddressService service;
 
-    @Value("${azure.maps.address.base.uri}")
+    @Value("${azure.maps.base.uri}")
     private String baseUrl;
 
     @Value("${azure.maps.api.key}")
@@ -55,7 +55,7 @@ class AddressServiceTest {
 
         String address = "Rua das Pedras 250";
         String url = String.
-                format("%s?api-version=1.0&subscription-key=%s&query=%s", baseUrl, apiKey,
+                format("%s/search/address/json?api-version=1.0&subscription-key=%s&query=%s", baseUrl, apiKey,
                         URLEncoder.encode(address, "UTF-8").replace("+", "%20"));
 
         double latitude = 35.58616;
@@ -88,7 +88,7 @@ class AddressServiceTest {
 
         String address = "Rua do Morro 2588";
         String url = String.
-                format("%s?api-version=1.0&subscription-key=%s&query=%s", baseUrl, apiKey,
+                format("%s/search/address/json?api-version=1.0&subscription-key=%s&query=%s", baseUrl, apiKey,
                         URLEncoder.encode(address, "UTF-8").replace("+", "%20"));
 
         server.expect(

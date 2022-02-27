@@ -21,7 +21,7 @@ public class AddressService {
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    @Value("${azure.maps.address.base.uri}")
+    @Value("${azure.maps.base.uri}")
     private String baseUri;
     @Value("${azure.maps.api.key}")
     private String apiKey;
@@ -34,7 +34,7 @@ public class AddressService {
     public Position getCoordinatesFromAddress(String address) {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri + "/search/address/json")
                 .queryParam("api-version", "1.0")
                 .queryParam("subscription-key", apiKey)
                 .queryParam("query", address);
