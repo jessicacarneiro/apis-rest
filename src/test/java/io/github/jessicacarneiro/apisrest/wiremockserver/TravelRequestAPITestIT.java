@@ -53,18 +53,24 @@ public class TravelRequestAPITestIT {
     public void testFindNearbyTravelRequests() {
         setUpServer();
 
-        given()
+        String passengerId = given()
                 .contentType(ContentType.JSON)
                 .body(FileHandler.loadFileContents("/requests/passengers-apis/create-new-passenger.json"))
                 .post("/passengers")
                 .then()
                 .statusCode(200)
                 .body("id", notNullValue())
-                .body("name", is("Jéssica Carneiro"));
+                .body("name", is("Jéssica Carneiro"))
+                .extract()
+                .body()
+                .jsonPath().getString("id");
 
-        given()
+        Map<String, String> data = new HashMap<>();
+        data.put("passengerId", passengerId);
+
+        Integer travelRequestId = given()
                 .contentType(ContentType.JSON)
-                .body(FileHandler.loadFileContents("/requests/travel-requests-api/create-new-request.json"))
+                .body(FileHandler.loadFileContents("/requests/travel-requests-api/create-new-request.json", data))
                 .post("/travelRequests")
                 .then()
                 .statusCode(200)
@@ -72,13 +78,16 @@ public class TravelRequestAPITestIT {
                 .body("destination", is("central park"))
                 .body("origin", is("empire state building"))
                 .body("status", is("CREATED"))
-                .body("_links.passenger.title", is("Jéssica Carneiro"));
+                .body("_links.passenger.title", is("Jéssica Carneiro"))
+                .extract()
+                .jsonPath()
+                .get("id");
 
         given()
                 .get("/travelRequests/nearby?currentAddress=central park")
                 .then()
                 .statusCode(200)
-                .body("[0].id", notNullValue())
+                .body("[0].id", is(travelRequestId))
                 .body("[0].destination", is("central park"))
                 .body("[0].origin", is("empire state building"))
                 .body("[0].status", is("CREATED"));

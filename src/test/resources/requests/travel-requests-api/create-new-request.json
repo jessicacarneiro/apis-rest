@@ -1,5 +1,5 @@
 {
-  "passengerId": "1",
+  "passengerId": "{{passengerId}}",
   "origin": "empire state building",
   "destination": "central park"
 }
