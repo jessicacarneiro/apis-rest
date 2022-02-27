@@ -1,0 +1,335 @@
+{
+  "summary": {
+    "query": "empire state building ny",
+    "queryType": "NON_NEAR",
+    "queryTime": 114,
+    "numResults": 10,
+    "offset": 0,
+    "totalResults": 51,
+    "fuzzyLevel": 1
+  },
+  "results": [
+    {
+      "type": "Street",
+      "id": "US/STR/p3/5110730",
+      "score": 6.2604470253,
+      "address": {
+        "streetName": "Empire State Boulevard",
+        "municipality": "Schodack",
+        "countrySecondarySubdivision": "Rensselaer",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "12033",
+        "extendedPostalCode": "12033-9724, 12033-9751, 12033-9777",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Empire State Boulevard, Castleton on Hudson, NY 12033",
+        "localName": "Castleton on Hudson"
+      },
+      "position": {
+        "lat": 42.57587,
+        "lon": -73.68365
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 42.57907,
+          "lon": -73.6838
+        },
+        "btmRightPoint": {
+          "lat": 42.57287,
+          "lon": -73.68179
+        }
+      }
+    },
+    {
+      "type": "Street",
+      "id": "US/STR/p1/5043198",
+      "score": 5.7921204567,
+      "address": {
+        "streetName": "Empire Boulevard",
+        "municipality": "Webster",
+        "countrySecondarySubdivision": "Monroe",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "14580",
+        "extendedPostalCode": "14580-1907, 14580-1908, 14580-2000, 14580-2001, 14580-2025, 14580-2027, 14580-2028, 14580-2048",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Empire Boulevard, Webster, NY 14580",
+        "localName": "Webster"
+      },
+      "position": {
+        "lat": 43.20113,
+        "lon": -77.49764
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 43.20928,
+          "lon": -77.50854
+        },
+        "btmRightPoint": {
+          "lat": 43.19129,
+          "lon": -77.48386
+        }
+      }
+    },
+    {
+      "type": "Cross Street",
+      "id": "US/XSTR/p1/2454609",
+      "score": 5.0134992599,
+      "address": {
+        "streetName": "Empire Road & Route 39, Fredonia Road, New York 39, State Route 39, New York State Route 39",
+        "municipality": "Hanover",
+        "countrySecondarySubdivision": "Chautauqua",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "14062",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Empire Road & Route 39, Forestville, NY 14062",
+        "localName": "Forestville"
+      },
+      "position": {
+        "lat": 42.45814,
+        "lon": -79.14179
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 42.45904,
+          "lon": -79.14301
+        },
+        "btmRightPoint": {
+          "lat": 42.45724,
+          "lon": -79.14057
+        }
+      }
+    },
+    {
+      "type": "Cross Street",
+      "id": "US/XSTR/p2/2399895",
+      "score": 5.0134992599,
+      "address": {
+        "streetName": "Empire Drive & Main Street, New York State Route 355, State Route 355, New York 355",
+        "municipality": "Poestenkill",
+        "countrySecondarySubdivision": "Rensselaer",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "12140",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Empire Drive & Main Street, Poestenkill, NY 12140",
+        "localName": "Poestenkill"
+      },
+      "position": {
+        "lat": 42.69534,
+        "lon": -73.57622
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 42.69624,
+          "lon": -73.57744
+        },
+        "btmRightPoint": {
+          "lat": 42.69444,
+          "lon": -73.575
+        }
+      }
+    },
+    {
+      "type": "Cross Street",
+      "id": "US/XSTR/p3/2554952",
+      "score": 5.0103025436,
+      "address": {
+        "streetName": "Empire Boulevard & Ovid Street, State Route 414, New York State Route 414, New York 414",
+        "municipality": "Seneca Falls",
+        "countrySecondarySubdivision": "Seneca",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "13148",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Empire Boulevard & Ovid Street, Seneca Falls, NY 13148",
+        "localName": "Seneca Falls"
+      },
+      "position": {
+        "lat": 42.88723,
+        "lon": -76.79991
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 42.88813,
+          "lon": -76.80114
+        },
+        "btmRightPoint": {
+          "lat": 42.88633,
+          "lon": -76.79868
+        }
+      }
+    },
+    {
+      "type": "Cross Street",
+      "id": "US/XSTR/p3/2592356",
+      "score": 5.0103025436,
+      "address": {
+        "streetName": "Ridge Road, New York State Route 404, New York 404, State Route 404 & Empire Boulevard, New York State Route 404, New York 404, State Route 404",
+        "municipality": "Webster",
+        "countrySecondarySubdivision": "Monroe",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "14580",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Ridge Road & Empire Boulevard, Webster, NY 14580",
+        "localName": "Webster"
+      },
+      "position": {
+        "lat": 43.20392,
+        "lon": -77.49208
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 43.20482,
+          "lon": -77.49331
+        },
+        "btmRightPoint": {
+          "lat": 43.20302,
+          "lon": -77.49085
+        }
+      }
+    },
+    {
+      "type": "Cross Street",
+      "id": "US/XSTR/p2/2366828",
+      "score": 4.9826078415,
+      "address": {
+        "streetName": "Empire Drive & State Route 208, New York 208, Shawangunk Mountains Scenic Byway, New York State Route 208, State Highway 208",
+        "municipality": "Shawangunk",
+        "countrySecondarySubdivision": "Ulster",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "12589",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Empire Drive & State Route 208, Wallkill, NY 12589",
+        "localName": "Wallkill"
+      },
+      "position": {
+        "lat": 41.62748,
+        "lon": -74.15082
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 41.62838,
+          "lon": -74.15202
+        },
+        "btmRightPoint": {
+          "lat": 41.62658,
+          "lon": -74.14962
+        }
+      }
+    },
+    {
+      "type": "Cross Street",
+      "id": "US/XSTR/p2/2460962",
+      "score": 4.9245128632,
+      "address": {
+        "streetName": "Sea Breeze Expressway North, New York State Route 590 North, New York 590 North, State Route 590 North & Empire Boulevard, New York State Route 404, Great Lakes Seaway Trail, New York 404, State Route 404",
+        "municipality": "Rochester",
+        "countrySecondarySubdivision": "Monroe",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "14609",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Sea Breeze Expressway North & Empire Boulevard, Rochester, NY 14609",
+        "localName": "Rochester"
+      },
+      "position": {
+        "lat": 43.17684,
+        "lon": -77.54256
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 43.17774,
+          "lon": -77.54379
+        },
+        "btmRightPoint": {
+          "lat": 43.17594,
+          "lon": -77.54133
+        }
+      }
+    },
+    {
+      "type": "Cross Street",
+      "id": "US/XSTR/p2/2460963",
+      "score": 4.9245128632,
+      "address": {
+        "streetName": "Sea Breeze Expressway South, State Route 590 South, New York State Route 590 South, New York 590 South & Empire Boulevard, New York State Route 404, Great Lakes Seaway Trail, New York 404, State Route 404",
+        "municipality": "Rochester",
+        "countrySecondarySubdivision": "Monroe",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "14609",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Sea Breeze Expressway South & Empire Boulevard, Rochester, NY 14609",
+        "localName": "Rochester"
+      },
+      "position": {
+        "lat": 43.17683,
+        "lon": -77.54274
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 43.17773,
+          "lon": -77.54397
+        },
+        "btmRightPoint": {
+          "lat": 43.17593,
+          "lon": -77.54151
+        }
+      }
+    },
+    {
+      "type": "Cross Street",
+      "id": "US/XSTR/p0/2530138",
+      "score": 4.911854744,
+      "address": {
+        "streetName": "State Route 31, New York State Route 31, New York 31, State Highway 31 & Empire Drive",
+        "municipality": "Galen",
+        "countrySecondarySubdivision": "Wayne",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "14433",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "State Route 31 & Empire Drive, Clyde, NY 14433",
+        "localName": "Clyde"
+      },
+      "position": {
+        "lat": 43.0887,
+        "lon": -76.9082
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 43.0896,
+          "lon": -76.90943
+        },
+        "btmRightPoint": {
+          "lat": 43.0878,
+          "lon": -76.90697
+        }
+      }
+    }
+  ]
+}

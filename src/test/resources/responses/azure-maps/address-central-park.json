@@ -1,0 +1,364 @@
+{
+  "summary": {
+    "query": "central park ny",
+    "queryType": "NON_NEAR",
+    "queryTime": 209,
+    "numResults": 10,
+    "offset": 0,
+    "totalResults": 184,
+    "fuzzyLevel": 1
+  },
+  "results": [
+    {
+      "type": "Street",
+      "id": "US/STR/p0/4568676",
+      "score": 6.4741978645,
+      "address": {
+        "streetName": "Central Park Avenue",
+        "municipality": "Greenburgh",
+        "countrySecondarySubdivision": "Westchester",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "10583",
+        "extendedPostalCode": "10583-1000, 10583-1016, 10583-1017, 10583-1018, 10583-1019, 10583-1020, 10583-1021, 10583-1034, 10583-1036, 10583-1038, 10583-1041, 10583-1066, 10583-1099, 10583-1300, 10583-1301, 10583-1302, 10583-1303, 10583-1318, 10583-1321, 10583-1323, 10583-1349, 10583-1358, 10583-1555, 10583-1556, 10583-2500, 10583-2503, 10583-2504, 10583-2505, 10583-2506, 10583-2507, 10583-2508, 10583-2509, 10583-2510, 10583-2511, 10583-2512, 10583-2535, 10583-2540, 10583-2541, 10583-2597, 10583-3200, 10583-3201, 10583-3202, 10583-3211, 10583-3214, 10583-3215, 10583-3216, 10583-3227, 10583-3229, 10583-3230, 10583-3231, 10583-3246, 10583-3248",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park Avenue, Scarsdale, NY 10583",
+        "localName": "Scarsdale"
+      },
+      "position": {
+        "lat": 40.99941,
+        "lon": -73.81565
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 41.00851,
+          "lon": -73.82757
+        },
+        "btmRightPoint": {
+          "lat": 40.99052,
+          "lon": -73.80373
+        }
+      }
+    },
+    {
+      "type": "Geography",
+      "id": "US/GEO/p0/53787",
+      "score": 6.3142743111,
+      "entityType": "Neighbourhood",
+      "address": {
+        "municipalitySubdivision": "Central Park",
+        "countrySecondarySubdivision": "Erie",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park, NY"
+      },
+      "position": {
+        "lat": 42.94796,
+        "lon": -78.83755
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 42.95849,
+          "lon": -78.84416
+        },
+        "btmRightPoint": {
+          "lat": 42.94011,
+          "lon": -78.82665
+        }
+      },
+      "boundingBox": {
+        "topLeftPoint": {
+          "lat": 42.95849,
+          "lon": -78.84416
+        },
+        "btmRightPoint": {
+          "lat": 42.94011,
+          "lon": -78.82665
+        }
+      },
+      "dataSources": {
+        "geometry": {
+          "id": "e9856bd8-28f3-432f-84df-fb109605f740"
+        }
+      }
+    },
+    {
+      "type": "Geography",
+      "id": "US/GEO/p0/56683",
+      "score": 6.3142743111,
+      "entityType": "Neighbourhood",
+      "address": {
+        "municipalitySubdivision": "Central Park",
+        "countrySecondarySubdivision": "New York",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park, NY"
+      },
+      "position": {
+        "lat": 40.78384,
+        "lon": -73.96555
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 40.80061,
+          "lon": -73.98155
+        },
+        "btmRightPoint": {
+          "lat": 40.76429,
+          "lon": -73.94925
+        }
+      },
+      "boundingBox": {
+        "topLeftPoint": {
+          "lat": 40.80061,
+          "lon": -73.98155
+        },
+        "btmRightPoint": {
+          "lat": 40.76429,
+          "lon": -73.94925
+        }
+      },
+      "dataSources": {
+        "geometry": {
+          "id": "0000554e-3200-3c00-0000-000024004f86"
+        }
+      }
+    },
+    {
+      "type": "Street",
+      "id": "US/STR/p0/4470707",
+      "score": 6.3052206039,
+      "address": {
+        "streetName": "Central Park",
+        "municipalitySubdivision": "South Marketview Heights",
+        "municipality": "Rochester",
+        "countrySecondarySubdivision": "Monroe",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park, Rochester, NY",
+        "localName": "Rochester"
+      },
+      "position": {
+        "lat": 43.16847,
+        "lon": -77.58804
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 43.17802,
+          "lon": -77.59992
+        },
+        "btmRightPoint": {
+          "lat": 43.16003,
+          "lon": -77.57525
+        }
+      }
+    },
+    {
+      "type": "Street",
+      "id": "US/STR/p0/4470710",
+      "score": 6.3052206039,
+      "address": {
+        "streetName": "Central Park",
+        "municipality": "Homer",
+        "countrySecondarySubdivision": "Cortland",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "13077",
+        "extendedPostalCode": "13077-1300, 13077-1309",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park, Homer, NY 13077",
+        "localName": "Homer"
+      },
+      "position": {
+        "lat": 42.63555,
+        "lon": -76.17955
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 42.636,
+          "lon": -76.18034
+        },
+        "btmRightPoint": {
+          "lat": 42.63466,
+          "lon": -76.17864
+        }
+      }
+    },
+    {
+      "type": "Street",
+      "id": "US/STR/p0/4545385",
+      "score": 6.2604470253,
+      "address": {
+        "streetName": "Central Park West",
+        "municipalitySubdivision": "Central Park",
+        "municipality": "New York",
+        "countrySecondarySubdivision": "New York",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park West, New York, NY",
+        "localName": "New York"
+      },
+      "position": {
+        "lat": 40.78463,
+        "lon": -73.96984
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 40.79334,
+          "lon": -73.98185
+        },
+        "btmRightPoint": {
+          "lat": 40.77536,
+          "lon": -73.9581
+        }
+      }
+    },
+    {
+      "type": "Street",
+      "id": "US/STR/p1/5029250",
+      "score": 6.2604470253,
+      "address": {
+        "streetName": "Central Park Road",
+        "municipality": "Schenectady",
+        "countrySecondarySubdivision": "Schenectady",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park Road, Schenectady, NY",
+        "localName": "Schenectady"
+      },
+      "position": {
+        "lat": 42.79722,
+        "lon": -73.91277
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 42.79994,
+          "lon": -73.91551
+        },
+        "btmRightPoint": {
+          "lat": 42.79344,
+          "lon": -73.91249
+        }
+      }
+    },
+    {
+      "type": "Street",
+      "id": "US/STR/p1/5029261",
+      "score": 6.2604470253,
+      "address": {
+        "streetName": "Central Park Road",
+        "municipality": "Plainview",
+        "countrySecondarySubdivision": "Nassau",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "11803",
+        "extendedPostalCode": "11803-2001, 11803-2002, 11803-2003, 11803-2004, 11803-2011, 11803-2012, 11803-2013, 11803-2014, 11803-2027, 11803-2028, 11803-2030, 11803-2031, 11803-2032, 11803-2033, 11803-2034, 11803-2035, 11803-2036, 11803-2037, 11803-2047, 11803-2052, 11803-2074, 11803-2080",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park Road, Plainview, NY 11803",
+        "localName": "Plainview"
+      },
+      "position": {
+        "lat": 40.78396,
+        "lon": -73.47898
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 40.79297,
+          "lon": -73.49072
+        },
+        "btmRightPoint": {
+          "lat": 40.77498,
+          "lon": -73.46697
+        }
+      }
+    },
+    {
+      "type": "Street",
+      "id": "US/STR/p1/5072947",
+      "score": 6.2604470253,
+      "address": {
+        "streetName": "Central Park Boulevard",
+        "municipality": "Bohemia",
+        "countrySecondarySubdivision": "Suffolk",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "11716",
+        "extendedPostalCode": "11716-4120, 11716-4121",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park Boulevard, Bohemia, NY 11716",
+        "localName": "Bohemia"
+      },
+      "position": {
+        "lat": 40.76513,
+        "lon": -73.08482
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 40.76611,
+          "lon": -73.08717
+        },
+        "btmRightPoint": {
+          "lat": 40.76454,
+          "lon": -73.08275
+        }
+      }
+    },
+    {
+      "type": "Street",
+      "id": "US/STR/p2/4478956",
+      "score": 6.2604470253,
+      "address": {
+        "streetName": "Central Park Plaza",
+        "municipalitySubdivision": "Fillmore-Leroy",
+        "municipality": "Buffalo",
+        "countrySecondarySubdivision": "Erie",
+        "countrySubdivision": "NY",
+        "countrySubdivisionName": "New York",
+        "postalCode": "14214",
+        "extendedPostalCode": "14214-2228, 14214-2235, 14214-2236, 14214-2237, 14214-2238",
+        "countryCode": "US",
+        "country": "United States",
+        "countryCodeISO3": "USA",
+        "freeformAddress": "Central Park Plaza, Buffalo, NY 14214",
+        "localName": "Buffalo"
+      },
+      "position": {
+        "lat": 42.93645,
+        "lon": -78.83159
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 42.93651,
+          "lon": -78.83494
+        },
+        "btmRightPoint": {
+          "lat": 42.9364,
+          "lon": -78.82821
+        }
+      }
+    }
+  ]
+}
