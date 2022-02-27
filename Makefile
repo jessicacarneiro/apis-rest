@@ -1,11 +1,14 @@
-dependency_check:
+clean:
+	./mvnw clean
+
+dependency_check: clean
 	./mvnw dependency-check:check
 
-run:
+run: clean
 	./mvnw spring-boot:run
 
-test:
+test: clean
 	./mvnw test
 
-verify:
+verify: clean
 	./mvnw verify
