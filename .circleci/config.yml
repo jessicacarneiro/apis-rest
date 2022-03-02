@@ -8,10 +8,16 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
+          command: ./mvnw -B -DskipTests clean package
       - run:
-          name: Test
-          command: mvn verify
+          name: Unit tests
+          command: ./mvnw test -DskipITs -Dspring.profiles.active=test
+      - run:
+          name: Integration tests
+          command: ./mvnw failsafe:integration-test failsafe:verify -Dspring.profiles.active=test
+      - run:
+          name: JaCoCo report
+          command: ./mvnw jacoco:report
       - coverage-reporter/send_report:
           coverage-reports: 'target/site/jacoco/jacoco.xml'
           skip: false
