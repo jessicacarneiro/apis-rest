@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+import static io.restassured.RestAssured.basic;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -47,6 +48,8 @@ public class TravelRequestAPITestIT {
     public void setUp() {
         RestAssuredMockMvc.mockMvc(mockMvc);
         RestAssured.port = port;
+        RestAssured.useRelaxedHTTPSValidation();
+        RestAssured.authentication = basic("admin", "password");
     }
 
     @Test
