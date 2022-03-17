@@ -5,6 +5,7 @@ import io.github.jessicacarneiro.apisrest.interfaces.incoming.input.TravelReques
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.mapping.TravelRequestMapper;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.TravelRequestOutput;
 import io.github.jessicacarneiro.apisrest.services.TravelService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
@@ -25,7 +26,7 @@ public class TravelRequestAPI {
     private TravelRequestMapper mapper;
 
     @PostMapping
-    public EntityModel<TravelRequestOutput> createTravelRequest(@RequestBody TravelRequestInput input) {
+    public EntityModel<TravelRequestOutput> createTravelRequest(@RequestBody @Valid TravelRequestInput input) {
         TravelRequest travelRequest = travelService.saveTravelRequest(mapper.map(input));
         TravelRequestOutput output = mapper.map(travelRequest);
 
