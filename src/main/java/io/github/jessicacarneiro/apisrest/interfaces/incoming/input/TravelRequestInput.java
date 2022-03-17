@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class TravelRequestInput {
 
-    @NotNull
+    @NotNull(message = "passengerId should not be null")
     Long passengerId;
     String origin;
     String destination;
