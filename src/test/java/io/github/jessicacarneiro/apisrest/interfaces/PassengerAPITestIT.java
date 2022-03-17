@@ -1,5 +1,6 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
+import io.github.jessicacarneiro.apisrest.SpringSecurityWebTestConfig;
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequestRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,7 +21,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = SpringSecurityWebTestConfig.class)
 @AutoConfigureMockMvc(addFilters = false)
 class PassengerAPITestIT {
 
@@ -83,6 +85,7 @@ class PassengerAPITestIT {
     }
 
     @Test
+    @WithUserDetails("manager@company.com")
     void createNewPassengerWithSuccess() throws Exception {
         Passenger passenger = generatePassenger(3L, "Marília Mendonça");
         String requestBody = generatePostBody(passenger);
