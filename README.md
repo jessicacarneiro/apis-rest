@@ -10,6 +10,7 @@ Project from book "APIs REST" by Alexandre Saudate
 2. [JaCoCo report](#jacoco-report)
 3. [Dependency check report](#dependency-check-report)
 4. [To Do](#todo)
+5[References](#references)
 
 ## Commands
 * `make run`: Start application
@@ -29,3 +30,8 @@ Run `make dependency_check` or `./mvnw dependency-check:check` to run the depend
 ## TODO
 
 [ ] Create script to validate dependency check report in the pipeline
+
+
+## References
+
+* [Spring Test & Security: How to mock authentication?](https://stackoverflow.com/questions/15203485/spring-test-security-how-to-mock-authentication)
