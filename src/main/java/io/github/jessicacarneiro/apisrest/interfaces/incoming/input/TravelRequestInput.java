@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 public class TravelRequestInput {
 
-    @NotNull(message = "Field passengerId should not be null")
+    @NotNull
     Long passengerId;
 
-    @NotEmpty(message = "Field origin should should not be empty")
+    @NotEmpty
     String origin;
 
-    @NotEmpty(message = "Field destination should should not be empty")
+    @NotEmpty
     String destination;
 }
