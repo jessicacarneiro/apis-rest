@@ -212,7 +212,7 @@ public class DriverAPIImplTestIT {
          mvc.perform(MockMvcRequestBuilders
                         .delete("/drivers/5"))
                 .andExpect(status().isNotFound())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors").exists());
     }
 
     private Driver generateDriver(String name, LocalDate dateOfBirth) {

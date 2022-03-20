@@ -205,7 +205,7 @@ class PassengerAPIImplTestIT {
         mvc.perform(MockMvcRequestBuilders
                         .delete("/passengers/5"))
                 .andExpect(status().isNotFound())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors").exists());
     }
 
     private Passenger generatePassenger(Long id, String name) {

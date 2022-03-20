@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.server.ResponseStatusException;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -70,7 +69,7 @@ class DriverAPIImplTest {
         long driverIdToSearch = 3L;
         when(driverRepository.findById(driverIdToSearch)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> driverAPIImpl.findDriver(driverIdToSearch)).isInstanceOf(ResponseStatusException.class);
+        assertThatThrownBy(() -> driverAPIImpl.findDriver(driverIdToSearch)).isInstanceOf(UserNotFoundException.class);
         verify(driverRepository).findById(driverIdToSearch);
     }
 

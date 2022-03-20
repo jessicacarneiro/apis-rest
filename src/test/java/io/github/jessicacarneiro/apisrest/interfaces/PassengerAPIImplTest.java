@@ -3,6 +3,7 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.PassengerAPIImpl;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling.exceptions.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.server.ResponseStatusException;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -68,7 +68,7 @@ class PassengerAPIImplTest {
         long passengerIdToSearch = 3L;
         when(passengerRepository.findById(passengerIdToSearch)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> passengerAPIImpl.findPassenger(passengerIdToSearch)).isInstanceOf(ResponseStatusException.class);
+        assertThatThrownBy(() -> passengerAPIImpl.findPassenger(passengerIdToSearch)).isInstanceOf(UserNotFoundException.class);
         verify(passengerRepository).findById(passengerIdToSearch);
     }
 
