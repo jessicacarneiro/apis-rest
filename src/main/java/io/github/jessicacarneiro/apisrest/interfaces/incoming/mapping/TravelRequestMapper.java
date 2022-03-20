@@ -3,7 +3,7 @@ package io.github.jessicacarneiro.apisrest.interfaces.incoming.mapping;
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
 import io.github.jessicacarneiro.apisrest.domain.TravelRequest;
-import io.github.jessicacarneiro.apisrest.interfaces.incoming.PassengerAPI;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.PassengerAPIImpl;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.input.TravelRequestInput;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.TravelRequestOutput;
 import java.util.List;
@@ -49,7 +49,7 @@ public class TravelRequestMapper {
     public EntityModel<TravelRequestOutput> buildOutputModel(TravelRequest travelRequest, TravelRequestOutput output) {
         EntityModel<TravelRequestOutput> model = new EntityModel<>(output);
 
-        Link passengerLink = WebMvcLinkBuilder.linkTo(PassengerAPI.class)
+        Link passengerLink = WebMvcLinkBuilder.linkTo(PassengerAPIImpl.class)
                 .slash(travelRequest.getPassenger().getId())
                 .withRel("passenger")
                 .withTitle(travelRequest.getPassenger().getName());

@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringSecurityWebTestConfig.class)
 @AutoConfigureMockMvc(addFilters = false)
-class PassengerAPITestIT {
+class PassengerAPIImplTestIT {
 
     @Autowired
     private PassengerRepository repository;

@@ -37,7 +37,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 )
 @ContextConfiguration
 @ActiveProfiles("test")
-public class TravelRequestAPITestIT {
+public class TravelRequestAPIImplTestIT {
 
     @LocalServerPort
     private int port;

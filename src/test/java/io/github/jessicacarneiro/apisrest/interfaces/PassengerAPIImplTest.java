@@ -2,7 +2,7 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Passenger;
 import io.github.jessicacarneiro.apisrest.domain.PassengerRepository;
-import io.github.jessicacarneiro.apisrest.interfaces.incoming.PassengerAPI;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.PassengerAPIImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,19 +20,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PassengerAPITest {
+class PassengerAPIImplTest {
 
     @Mock
     private PassengerRepository passengerRepository;
 
     @InjectMocks
-    private PassengerAPI passengerAPI;
+    private PassengerAPIImpl passengerAPIImpl;
 
     @Test
     void shouldReturnEmptyListIfNoPassengersRegistered() {
         when(passengerRepository.findAll()).thenReturn(Collections.emptyList());
 
-        List<Passenger> actualPassengers = passengerAPI.listPassengers();
+        List<Passenger> actualPassengers = passengerAPIImpl.listPassengers();
 
         assertThat(actualPassengers).isEmpty();
         verify(passengerRepository).findAll();
@@ -44,7 +44,7 @@ class PassengerAPITest {
         expectedPassengers.add(generatePassenger(1L, "José Campos"));
         when(passengerRepository.findAll()).thenReturn(expectedPassengers);
 
-        List<Passenger> actualPassengers = passengerAPI.listPassengers();
+        List<Passenger> actualPassengers = passengerAPIImpl.listPassengers();
 
         assertThat(actualPassengers.size()).isEqualTo(expectedPassengers.size());
         assertThat(actualPassengers.get(0)).isEqualTo(expectedPassengers.get(0));
@@ -56,7 +56,7 @@ class PassengerAPITest {
         Passenger expectedPassenger = generatePassenger(2L, "Mario Campos");
         when(passengerRepository.findById(expectedPassenger.getId())).thenReturn(java.util.Optional.of(expectedPassenger));
 
-        Passenger actualPassenger = passengerAPI.findPassenger(expectedPassenger.getId());
+        Passenger actualPassenger = passengerAPIImpl.findPassenger(expectedPassenger.getId());
 
         assertThat(actualPassenger.getId()).isEqualTo(expectedPassenger.getId());
         assertThat(actualPassenger.getName()).isEqualTo(expectedPassenger.getName());
@@ -68,7 +68,7 @@ class PassengerAPITest {
         long passengerIdToSearch = 3L;
         when(passengerRepository.findById(passengerIdToSearch)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> passengerAPI.findPassenger(passengerIdToSearch)).isInstanceOf(ResponseStatusException.class);
+        assertThatThrownBy(() -> passengerAPIImpl.findPassenger(passengerIdToSearch)).isInstanceOf(ResponseStatusException.class);
         verify(passengerRepository).findById(passengerIdToSearch);
     }
 
@@ -77,7 +77,7 @@ class PassengerAPITest {
         Passenger expectedPassenger = generatePassenger(3L, "Matheus Aguiar");
         when(passengerRepository.save(expectedPassenger)).thenReturn(expectedPassenger);
 
-        Passenger actualPassenger = passengerAPI.createPassenger(expectedPassenger);
+        Passenger actualPassenger = passengerAPIImpl.createPassenger(expectedPassenger);
 
         assertThat(actualPassenger.getId()).isEqualTo(expectedPassenger.getId());
         assertThat(actualPassenger.getName()).isEqualTo(expectedPassenger.getName());
@@ -91,7 +91,7 @@ class PassengerAPITest {
         Passenger expectedPassenger = generatePassenger(4L, "Carol Lopes");
         when(passengerRepository.save(expectedPassenger)).thenReturn(expectedPassenger);
 
-        Passenger actualPassenger = passengerAPI.fullyUpdatePassenger(savedPassenger.getId(), expectedPassenger);
+        Passenger actualPassenger = passengerAPIImpl.fullyUpdatePassenger(savedPassenger.getId(), expectedPassenger);
 
         assertThat(actualPassenger.getId()).isEqualTo(savedPassenger.getId());
         assertThat(actualPassenger.getName()).isEqualTo(savedPassenger.getName());
@@ -106,7 +106,7 @@ class PassengerAPITest {
         Passenger expectedPassenger = generatePassenger(4L, "Carol Lopes");
         when(passengerRepository.save(expectedPassenger)).thenReturn(expectedPassenger);
 
-        Passenger actualPassenger = passengerAPI.partiallyUpdatePassenger(savedPassenger.getId(), expectedPassenger);
+        Passenger actualPassenger = passengerAPIImpl.partiallyUpdatePassenger(savedPassenger.getId(), expectedPassenger);
 
         assertThat(actualPassenger.getId()).isEqualTo(savedPassenger.getId());
         assertThat(actualPassenger.getName()).isEqualTo(savedPassenger.getName());
@@ -119,7 +119,7 @@ class PassengerAPITest {
         Passenger passengerSaved = generatePassenger(3L, "Márcia Abílio");
         when(passengerRepository.findById(passengerSaved.getId())).thenReturn(java.util.Optional.of(passengerSaved));
 
-        passengerAPI.deletePassenger(passengerSaved.getId());
+        passengerAPIImpl.deletePassenger(passengerSaved.getId());
 
         verify(passengerRepository).findById(passengerSaved.getId());
         verify(passengerRepository).delete(passengerSaved);
