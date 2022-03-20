@@ -1,5 +1,6 @@
 package io.github.jessicacarneiro.apisrest.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.OffsetDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +12,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@Schema(description = "Represents a travel request created for a passenger in the platform")
 public class TravelRequest {
 
     @Id
