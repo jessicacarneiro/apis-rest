@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
-public class DriverAPITestIT {
+public class DriverAPIImplTestIT {
 
     @Autowired
     private DriverRepository repository;

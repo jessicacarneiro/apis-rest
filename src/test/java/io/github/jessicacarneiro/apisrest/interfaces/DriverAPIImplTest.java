@@ -2,7 +2,7 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
-import io.github.jessicacarneiro.apisrest.interfaces.incoming.DriverAPI;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.DriverAPIImpl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,19 +21,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class DriverAPITest {
+class DriverAPIImplTest {
 
     @Mock
     private DriverRepository driverRepository;
 
     @InjectMocks
-    private DriverAPI driverAPI;
+    private DriverAPIImpl driverAPIImpl;
 
     @Test
     void shouldReturnEmptyListIfNoDriversRegistered() {
         when(driverRepository.findAll()).thenReturn(Collections.emptyList());
 
-        List<Driver> driversList = driverAPI.listDrivers();
+        List<Driver> driversList = driverAPIImpl.listDrivers();
 
         assertThat(Collections.emptyList()).isEqualTo(driversList);
     }
@@ -45,7 +45,7 @@ class DriverAPITest {
         expectedDriversList.add(generateDriver(1L,"João Costa", dateOfBirth));
         when(driverRepository.findAll()).thenReturn(expectedDriversList);
 
-        List<Driver> actualDriversList = driverAPI.listDrivers();
+        List<Driver> actualDriversList = driverAPIImpl.listDrivers();
 
         assertThat(expectedDriversList).isEqualTo(actualDriversList);
         verify(driverRepository).findAll();
@@ -58,7 +58,7 @@ class DriverAPITest {
         Long driverIdToSearch = expectedDriver.getId();
         when(driverRepository.findById(driverIdToSearch)).thenReturn(java.util.Optional.of(expectedDriver));
 
-        Driver actualDriver = driverAPI.findDriver(driverIdToSearch);
+        Driver actualDriver = driverAPIImpl.findDriver(driverIdToSearch);
 
         assertThat(actualDriver).isEqualTo(expectedDriver);
         verify(driverRepository).findById(driverIdToSearch);
@@ -69,7 +69,7 @@ class DriverAPITest {
         long driverIdToSearch = 3L;
         when(driverRepository.findById(driverIdToSearch)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> driverAPI.findDriver(driverIdToSearch)).isInstanceOf(ResponseStatusException.class);
+        assertThatThrownBy(() -> driverAPIImpl.findDriver(driverIdToSearch)).isInstanceOf(ResponseStatusException.class);
         verify(driverRepository).findById(driverIdToSearch);
     }
 
@@ -79,7 +79,7 @@ class DriverAPITest {
         Driver expectedDriver = generateDriver(3L,"Marcos Rocha", dateOfBirth);
         when(driverRepository.save(expectedDriver)).thenReturn(expectedDriver);
 
-        Driver createdDriver = driverAPI.createDriver(expectedDriver);
+        Driver createdDriver = driverAPIImpl.createDriver(expectedDriver);
 
         assertThat(createdDriver).isEqualTo(expectedDriver);
         verify(driverRepository).save(expectedDriver);
@@ -93,7 +93,7 @@ class DriverAPITest {
         driverToSave.setName("Alexandre Souza");
         when(driverRepository.save(driverToSave)).thenReturn(driverToSave);
 
-        Driver fullyUpdateDriver = driverAPI.fullyUpdateDriver(3L, driverToSave);
+        Driver fullyUpdateDriver = driverAPIImpl.fullyUpdateDriver(3L, driverToSave);
 
         assertThat(fullyUpdateDriver).isEqualTo(driverToSave);
         verify(driverRepository).findById(driverToSave.getId());
@@ -109,7 +109,7 @@ class DriverAPITest {
         driverToSave.setName("Rosana Martins");
         when(driverRepository.save(driverToSave)).thenReturn(driverToSave);
 
-        Driver fullyUpdateDriver = driverAPI.partiallyUpdateDriver(3L, driverToSave);
+        Driver fullyUpdateDriver = driverAPIImpl.partiallyUpdateDriver(3L, driverToSave);
 
         assertThat(fullyUpdateDriver).isEqualTo(driverToSave);
         verify(driverRepository).findById(driverToSave.getId());
@@ -122,7 +122,7 @@ class DriverAPITest {
         Driver driverSaved = generateDriver(3L,"Joaquim Abílio", dateOfBirth);
         when(driverRepository.findById(driverSaved.getId())).thenReturn(java.util.Optional.of(driverSaved));
 
-        driverAPI.deleteDriver(driverSaved.getId());
+        driverAPIImpl.deleteDriver(driverSaved.getId());
 
         verify(driverRepository).findById(driverSaved.getId());
         verify(driverRepository).delete(driverSaved);
