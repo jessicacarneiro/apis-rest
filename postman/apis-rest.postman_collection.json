@@ -1,313 +1,366 @@
 {
 	"info": {
-		"_postman_id": "2574b7d8-a96e-4e00-9bb5-ff3417bbf756",
+		"_postman_id": "76cd5a59-49b6-45a2-9695-f7429cda3616",
 		"name": "apis-rest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create driver",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept-Language",
-						"value": "pt-BR",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Matteo Randall\",\n    \"dateOfBirth\": \"1991-12-15\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+			"name": "drivers",
+			"item": [
+				{
+					"name": "Create driver",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "pt-BR",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Matteo Randall\",\n    \"dateOfBirth\": \"1991-12-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/drivers",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers"
+							]
+						},
+						"description": "Creates a new driver"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{HOST}}/drivers",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"drivers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all drivers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST}}/drivers",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"drivers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get driver by id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST}}/drivers/1",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"drivers",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete driver",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{HOST}}/drivers/1",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"drivers",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Fully update driver",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Matheus Leme\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+				{
+					"name": "Get all drivers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/drivers",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers"
+							]
+						},
+						"description": "Get a list of all drivers."
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{HOST}}/drivers/1",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"drivers",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Partially update driver",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Jonas Soares\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+				{
+					"name": "Get driver by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/drivers/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers",
+								"1"
+							]
+						},
+						"description": "Get a specific driver searching by its ID"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{HOST}}/drivers/1",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"drivers",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create passenger",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Joaquim Silveira\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+				{
+					"name": "Delete driver",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/drivers/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers",
+								"1"
+							]
+						},
+						"description": "Delete a specific driver"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{HOST}}/passengers",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"passengers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all passengers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST}}/passengers",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"passengers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get passenger by id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST}}/passengers/1",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"passengers",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete passenger",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{HOST}}/passengers/1",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"passengers",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Fully update passenger",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Matheus Leme\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+				{
+					"name": "Fully update driver",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Matheus Leme\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/drivers/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers",
+								"1"
+							]
+						},
+						"description": "Fully update a driver"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{HOST}}/passengers/2",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"passengers",
-						"2"
-					]
+				{
+					"name": "Partially update driver",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jonas Soares\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/drivers/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"drivers",
+								"1"
+							]
+						},
+						"description": "Partially update a driver"
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Partially update passenger",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Jonas Soares\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+			"name": "passengers",
+			"item": [
+				{
+					"name": "Create passenger",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Joaquim Silveira\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/passengers",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"passengers"
+							]
+						},
+						"description": "Creates a new passenger"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{HOST}}/passengers/2",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"passengers",
-						"2"
-					]
+				{
+					"name": "Get all passengers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/passengers",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"passengers"
+							]
+						},
+						"description": "Get a list of all passengerd"
+					},
+					"response": []
+				},
+				{
+					"name": "Get passenger by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/passengers/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"passengers",
+								"1"
+							]
+						},
+						"description": "Get a specific passenger searching by its ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete passenger",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/passengers/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"passengers",
+								"1"
+							]
+						},
+						"description": "Delete a specific passenger"
+					},
+					"response": []
+				},
+				{
+					"name": "Fully update passenger",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Matheus Leme\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/passengers/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"passengers",
+								"2"
+							]
+						},
+						"description": "Fully update a specific passenger"
+					},
+					"response": []
+				},
+				{
+					"name": "Partially update passenger",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jonas Soares\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/passengers/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"passengers",
+								"2"
+							]
+						},
+						"description": "Partially updates a specific passenger"
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Create travel request",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept-Language",
-						"value": "zh",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"passengerId\": 2,\n    \"origin\": \"\",\n    \"destination\": \"Rua das Margaridas, 678\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+			"name": "travels",
+			"item": [
+				{
+					"name": "Create travel request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "zh",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"passengerId\": 14,\n    \"origin\": \"Rua das Margaridas, 678\",\n    \"destination\": \"Rua das Flores, 21\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/travelRequests",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"travelRequests"
+							]
+						},
+						"description": "Creates a new travel request for a passenger"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{HOST}}/travelRequests",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"travelRequests"
-					]
+				{
+					"name": "Get nearby travel requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/travelRequests/nearby?currentAddress=Rua das Flores, 21",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"travelRequests",
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "currentAddress",
+									"value": "Rua das Flores, 21"
+								}
+							]
+						},
+						"description": "Gets a list of all travel requests near a specific address"
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"auth": {
@@ -348,7 +401,7 @@
 	"variable": [
 		{
 			"key": "HOST",
-			"value": "https://localhost:8080/"
+			"value": "https://localhost:8080"
 		}
 	]
 }
