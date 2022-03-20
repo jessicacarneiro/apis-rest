@@ -32,6 +32,7 @@ Run `make dependency_check` or `./mvnw dependency-check:check` to run the depend
 [ ] Create script to validate dependency check report in the pipeline
 [ ] Add roles to other controllers
 [ ] Add more tests (increase test coverage)
+[ ] Add more cases do default error handling
 
 ## References
 
