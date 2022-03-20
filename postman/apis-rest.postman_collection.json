@@ -296,32 +296,23 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "Get created nearby travel requests",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{HOST}}/travelRequests/nearby?currentAddress=150 Centre St, New York",
-					"host": [
-						"{{HOST}}"
-					],
-					"path": [
-						"travelRequests",
-						"nearby"
-					],
-					"query": [
-						{
-							"key": "currentAddress",
-							"value": "150 Centre St, New York"
-						}
-					]
-				}
-			},
-			"response": []
 		}
 	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "password",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",

@@ -33,6 +33,7 @@ Run `make dependency_check` or `./mvnw dependency-check:check` to run the depend
 [ ] Add roles to other controllers
 [ ] Add more tests (increase test coverage)
 [ ] Add more cases do default error handling
+[ ] Create interfaces with OpenAPI docs for all APIs
 
 ## References
 
