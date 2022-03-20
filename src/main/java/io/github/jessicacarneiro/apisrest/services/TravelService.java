@@ -38,20 +38,16 @@ public class TravelService {
     public List<TravelRequest> listNearbyTravelRequests(String currentAddress) {
         List<TravelRequest> requests = repository.findByStatus(TravelRequestStatus.CREATED);
 
-        List<TravelRequest> nearbyRequests = requests
+        return requests
                 .stream()
                 .filter(tr -> isNearby(currentAddress, tr.getOrigin()))
                 .collect(Collectors.toList());
-
-        return nearbyRequests;
     }
 
     private Boolean isNearby(String origin, String destination) {
         Position positionOrigin = addressService.getCoordinatesFromAddress(origin);
         Position positionDestination = addressService.getCoordinatesFromAddress(destination);
 
-        Boolean isNearby = routeService.getTravelTimeInSeconds(positionOrigin, positionDestination).get(0) <= MAX_TRAVEL_TIME;
-
-        return isNearby;
+        return routeService.getTravelTimeInSeconds(positionOrigin, positionDestination).get(0) <= MAX_TRAVEL_TIME;
     }
 }

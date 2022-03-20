@@ -3,6 +3,7 @@ package io.github.jessicacarneiro.apisrest.interfaces;
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.DriverAPIImpl;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling.exceptions.UserNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,7 +53,7 @@ class DriverAPIImplTest {
     }
 
     @Test
-    void shouldFindDriverById() {
+    void shouldFindDriverById() throws UserNotFoundException {
         LocalDate dateOfBirth = LocalDate.of(1990, 8, 16);
         Driver expectedDriver = generateDriver(2L,"Maria Almeida", dateOfBirth);
         Long driverIdToSearch = expectedDriver.getId();

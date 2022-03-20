@@ -2,10 +2,10 @@ package io.github.jessicacarneiro.apisrest.interfaces.incoming;
 
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling.exceptions.UserNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RestController
@@ -35,7 +34,7 @@ public class DriverAPIImpl implements DriverAPI {
     @GetMapping("/{id}")
     public Driver findDriver(@PathVariable("id") Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UserNotFoundException("Driver with id " + id + " was not found"));
     }
 
     @PostMapping
@@ -49,6 +48,7 @@ public class DriverAPIImpl implements DriverAPI {
             @RequestBody Driver driver
     ) {
         Driver foundDriver = findDriver(id);
+
 
         foundDriver.setName(Optional.ofNullable(driver.getName()).orElse(foundDriver.getName()));
         foundDriver.setDateOfBirth(Optional.ofNullable(driver.getDateOfBirth()).orElse(foundDriver.getDateOfBirth()));

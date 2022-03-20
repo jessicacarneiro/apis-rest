@@ -1,5 +1,11 @@
 package io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling;
 
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling.exceptions.UserNotFoundException;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +26,12 @@ public class DefaultErrorHandling {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ApiResponses(
+            @ApiResponse(responseCode = "400", content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+            ))
+    )
     public ErrorResponse handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
 
         List<ErrorData> messages = exception
@@ -30,6 +42,13 @@ public class DefaultErrorHandling {
                 .collect(Collectors.toList());
 
         return new ErrorResponse(messages);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleUserNotFound(UserNotFoundException exception) {
+        ErrorData error = new ErrorData(exception.getMessage());
+        return new ErrorResponse(Collections.singletonList(error));
     }
 
     private ErrorData getMessage(FieldError fieldError) {
