@@ -2,13 +2,13 @@ package io.github.jessicacarneiro.apisrest.interfaces.incoming;
 
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling.ErrorResponse;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.Drivers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface DriverAPI {
 
     @Operation(description = "List all drivers")
-    CollectionModel<Driver> listDrivers(
+    Drivers listDrivers(
         @Parameter(description = "Page number for pagination purposes")
         @RequestParam(name = "page", defaultValue = "0") int page
     );

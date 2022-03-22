@@ -9,6 +9,7 @@ import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.DriverAPIImpl;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling.exceptions.UserNotFoundException;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.Drivers;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.hateoas.CollectionModel;
 
 @ExtendWith(MockitoExtension.class)
 class DriverAPIImplTest {
@@ -39,9 +39,9 @@ class DriverAPIImplTest {
 
         when(driverRepository.findAll(PageRequest.of(page, pageSize))).thenReturn(Page.empty());
 
-        CollectionModel<Driver> driversList = driverAPIImpl.listDrivers(page);
+        Drivers response = driverAPIImpl.listDrivers(page);
 
-        assertThat(driversList.getContent().isEmpty()).isTrue();
+        assertThat(response.getDrivers().isEmpty()).isTrue();
     }
 
     @Test
@@ -54,10 +54,15 @@ class DriverAPIImplTest {
         Page<Driver> pagedResponse = new PageImpl<>(expectedDriversList);
         when(driverRepository.findAll(PageRequest.of(page, pageSize))).thenReturn(pagedResponse);
 
-        CollectionModel<Driver> actualDriversList = driverAPIImpl.listDrivers(page);
+        Drivers actualDriversList = driverAPIImpl.listDrivers(page);
 
-        assertThat(actualDriversList.getContent().size()).isEqualTo(expectedDriversList.size());
-        assertThat(actualDriversList.getContent().stream().findFirst().get()).isEqualTo(expectedDriversList.get(0));
+        assertThat(actualDriversList.getDrivers().size()).isEqualTo(expectedDriversList.size());
+
+        Driver actualDriver = actualDriversList.getDrivers().get(0).getContent();
+        assertThat(actualDriver.getId()).isEqualTo(expectedDriversList.get(0).getId());
+        assertThat(actualDriver.getName()).isEqualTo(expectedDriversList.get(0).getName());
+        assertThat(actualDriver.getDateOfBirth()).isEqualTo(expectedDriversList.get(0).getDateOfBirth());
+        
         verify(driverRepository).findAll(PageRequest.of(page, pageSize));
     }
 

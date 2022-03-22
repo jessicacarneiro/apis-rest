@@ -40,7 +40,7 @@ public class DriverAPIImplTestIT {
                         .get("/drivers")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList").doesNotExist());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.drivers").isEmpty());
     }
 
     @Test
@@ -53,10 +53,10 @@ public class DriverAPIImplTestIT {
                         .get("/drivers")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList[0].id").value(driverSaved.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList[0].dateOfBirth").value(driverSaved.getDateOfBirth().toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList[0].name").value(driverSaved.getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.drivers").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.drivers[0].id").value(driverSaved.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.drivers[0].dateOfBirth").value(driverSaved.getDateOfBirth().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.drivers[0].name").value(driverSaved.getName()));
     }
 
     @Test

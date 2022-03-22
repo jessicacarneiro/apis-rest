@@ -6,11 +6,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling.exceptions.UserNotFoundException;
+import io.github.jessicacarneiro.apisrest.interfaces.incoming.output.Drivers;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -35,17 +39,21 @@ public class DriverAPIImpl implements DriverAPI {
   private DriverRepository repository;
 
   @GetMapping
-  public CollectionModel<Driver> listDrivers(
+  public Drivers listDrivers(
       @RequestParam(name = "page", defaultValue = "0") int page) {
     Page<Driver> driverPage = repository.findAll(PageRequest.of(page, PAGE_SIZE));
-    CollectionModel<Driver> collectionModel = new CollectionModel<>(driverPage.getContent());
+
+    List<EntityModel<Driver>> driverList = new ArrayList<>();
+    for (Driver driver : driverPage.getContent()) {
+      driverList.add(EntityModel.of(driver));
+    }
 
     Link lastPageLink = linkTo(
         methodOn(DriverAPIImpl.class)
             .listDrivers(driverPage.getTotalPages() - 1))
         .withRel("lastPage");
 
-    return collectionModel.add(lastPageLink);
+    return new Drivers(driverList, lastPageLink);
   }
 
   @GetMapping("/{id}")
