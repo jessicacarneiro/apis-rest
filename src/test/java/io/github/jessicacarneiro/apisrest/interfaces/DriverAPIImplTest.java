@@ -62,7 +62,7 @@ class DriverAPIImplTest {
         assertThat(actualDriver.getId()).isEqualTo(expectedDriversList.get(0).getId());
         assertThat(actualDriver.getName()).isEqualTo(expectedDriversList.get(0).getName());
         assertThat(actualDriver.getDateOfBirth()).isEqualTo(expectedDriversList.get(0).getDateOfBirth());
-        
+
         verify(driverRepository).findAll(PageRequest.of(page, pageSize));
     }
 
