@@ -1,5 +1,8 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
 import java.time.LocalDate;
@@ -14,9 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -40,7 +40,7 @@ public class DriverAPIImplTestIT {
                         .get("/drivers")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList").doesNotExist());
     }
 
     @Test
@@ -53,10 +53,10 @@ public class DriverAPIImplTestIT {
                         .get("/drivers")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(driverSaved.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].dateOfBirth").value(driverSaved.getDateOfBirth().toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(driverSaved.getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList[0].id").value(driverSaved.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList[0].dateOfBirth").value(driverSaved.getDateOfBirth().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.driverList[0].name").value(driverSaved.getName()));
     }
 
     @Test

@@ -1,12 +1,16 @@
 package io.github.jessicacarneiro.apisrest.interfaces;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import io.github.jessicacarneiro.apisrest.domain.Driver;
 import io.github.jessicacarneiro.apisrest.domain.DriverRepository;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.DriverAPIImpl;
 import io.github.jessicacarneiro.apisrest.interfaces.incoming.errorhandling.exceptions.UserNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -14,11 +18,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.hateoas.CollectionModel;
 
 @ExtendWith(MockitoExtension.class)
 class DriverAPIImplTest {
@@ -31,24 +34,31 @@ class DriverAPIImplTest {
 
     @Test
     void shouldReturnEmptyListIfNoDriversRegistered() {
-        when(driverRepository.findAll()).thenReturn(Collections.emptyList());
+        int page = 1;
+        int pageSize = 10;
 
-        List<Driver> driversList = driverAPIImpl.listDrivers();
+        when(driverRepository.findAll(PageRequest.of(page, pageSize))).thenReturn(Page.empty());
 
-        assertThat(Collections.emptyList()).isEqualTo(driversList);
+        CollectionModel<Driver> driversList = driverAPIImpl.listDrivers(page);
+
+        assertThat(driversList.getContent().isEmpty()).isTrue();
     }
 
     @Test
     void shouldReturnListWithRegisteredDrivers() {
+        int page = 0;
+        int pageSize = 10;
         List<Driver> expectedDriversList = new ArrayList<>();
         LocalDate dateOfBirth = LocalDate.of(1990, 8, 16);
         expectedDriversList.add(generateDriver(1L,"João Costa", dateOfBirth));
-        when(driverRepository.findAll()).thenReturn(expectedDriversList);
+        Page<Driver> pagedResponse = new PageImpl<>(expectedDriversList);
+        when(driverRepository.findAll(PageRequest.of(page, pageSize))).thenReturn(pagedResponse);
 
-        List<Driver> actualDriversList = driverAPIImpl.listDrivers();
+        CollectionModel<Driver> actualDriversList = driverAPIImpl.listDrivers(page);
 
-        assertThat(expectedDriversList).isEqualTo(actualDriversList);
-        verify(driverRepository).findAll();
+        assertThat(actualDriversList.getContent().size()).isEqualTo(expectedDriversList.size());
+        assertThat(actualDriversList.getContent().stream().findFirst().get()).isEqualTo(expectedDriversList.get(0));
+        verify(driverRepository).findAll(PageRequest.of(page, pageSize));
     }
 
     @Test
