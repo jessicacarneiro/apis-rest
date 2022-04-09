@@ -58,11 +58,11 @@ public class RouteService {
 
             return rawResults.stream().map(it -> ((Integer) it)).collect(Collectors.toList());
         } catch (NullPointerException exception) {
-            return null;
+            return Collections.emptyList();
         }
     }
 
     public List<Integer> getTravelTimeInSecondsFallback(Position origin, Position destination, Throwable throwable) {
-        return null;
+        return Collections.emptyList();
     }
 }

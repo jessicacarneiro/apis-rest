@@ -1,5 +1,7 @@
 package io.github.jessicacarneiro.apisrest.interfaces.outcoming;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -20,8 +22,6 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 import org.springframework.web.client.RestTemplate;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -76,7 +76,7 @@ class RouteServiceTest {
     }
 
     @Test
-    void shouldReturnNullIfNoResponseIsReturned() throws JsonProcessingException, UnsupportedEncodingException {
+    void shouldReturnEmptyListIfNoResponseIsReturned() throws JsonProcessingException, UnsupportedEncodingException {
         MockRestServiceServer server = setUp();
 
         Position origin = generatePosition(38.4452, -18.69340);
@@ -95,7 +95,7 @@ class RouteServiceTest {
 
         List<Integer> actualTravelTime = service.getTravelTimeInSeconds(origin, destination);
 
-        assertThat(actualTravelTime).isNull();
+        assertThat(actualTravelTime.isEmpty()).isTrue();
         server.verify();
     }
 
