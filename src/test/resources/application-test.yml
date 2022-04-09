@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:apisresttestdb
+
+wiremock:
+  server:
+    port: 8082
+
+azure:
+  maps:
+    base:
+      uri: http://localhost:${wiremock.server.port}
+    api:
+      key: blablabla
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 30s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
