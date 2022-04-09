@@ -2,6 +2,7 @@ package io.github.jessicacarneiro.apisrest.interfaces.outcoming;
 
 import com.jayway.jsonpath.JsonPath;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Position;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +35,7 @@ public class RouteService {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
     }
 
+    @CircuitBreaker(name = "timeTravel", fallbackMethod = "getTravelTimeInSecondsFallback")
     public List<Integer> getTravelTimeInSeconds(Position origin, Position destination) {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -55,8 +57,12 @@ public class RouteService {
             JSONArray rawResults = JsonPath.parse(jsonResult).read("$..routes[0].summary.travelTimeInSeconds");
 
             return rawResults.stream().map(it -> ((Integer) it)).collect(Collectors.toList());
-        } catch (Exception exception) {
+        } catch (NullPointerException exception) {
             return null;
         }
+    }
+
+    public List<Integer> getTravelTimeInSecondsFallback(Position origin, Position destination, Throwable throwable) {
+        return null;
     }
 }

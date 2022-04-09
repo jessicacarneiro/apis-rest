@@ -29,3 +29,8 @@ resilience4j:
         waitDurationInOpenState: 30s
         failureRateThreshold: 50
         eventConsumerBufferSize: 10
+    instances:
+      coordinatesFromAddress:
+        baseConfig: default
+      timeTravel:
+        baseConfig: default

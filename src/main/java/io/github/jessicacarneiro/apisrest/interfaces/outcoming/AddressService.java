@@ -2,6 +2,7 @@ package io.github.jessicacarneiro.apisrest.interfaces.outcoming;
 
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.AddressResponse;
 import io.github.jessicacarneiro.apisrest.interfaces.outcoming.output.Position;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +32,7 @@ public class AddressService {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
     }
 
+    @CircuitBreaker(name = "coordinatesFromAddress", fallbackMethod = "getCoordinatesFromAddressFallback")
     public Position getCoordinatesFromAddress(String address) {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -49,8 +51,13 @@ public class AddressService {
                     AddressResponse.class);
 
             return response.getBody().getResults().get(0).getPosition();
-        } catch (Exception exception) {
+        } catch (NullPointerException nullPointerException) {
             return null;
         }
+    }
+
+    @SuppressWarnings("java:S107")
+    public Position getCoordinatesFromAddressFallback(String address, Throwable throwable) {
+        return null;
     }
 }
