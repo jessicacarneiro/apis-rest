@@ -29,11 +29,12 @@ Run `make dependency_check` or `./mvnw dependency-check:check` to run the depend
 
 ## TODO
 
-[ ] Create script to validate dependency check report in the pipeline
-[ ] Add roles to other controllers
-[ ] Add more tests (increase test coverage)
-[ ] Add more cases do default error handling
-[x] Create interfaces with OpenAPI docs for all APIs
+- [ ] Create script to validate dependency check report in the pipeline
+- [ ] Add roles to other controllers
+- [ ] Add more tests (increase test coverage)
+- [ ] Add more cases do default error handling
+- [ ] Add cache
+- [x] Create interfaces with OpenAPI docs for all APIs
 
 ## References
 
