@@ -10,7 +10,7 @@ Project from book "APIs REST" by Alexandre Saudate
 2. [JaCoCo report](#jacoco-report)
 3. [Dependency check report](#dependency-check-report)
 4. [To Do](#todo)
-5[References](#references)
+5. [References](#references)
 
 ## Commands
 * `make run`: Start application
